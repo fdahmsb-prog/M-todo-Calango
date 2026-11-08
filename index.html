@@ -267,7 +267,7 @@ tfoot td{font-weight:600;background:var(--bg)}
       <p class="small muted" style="margin:0">Referência usada: abaixo de 60% de acerto é crítico, de 60% a 74% pede atenção, 75% ou mais está no caminho. Com menos de 10 questões o percentual ainda não é confiável.</p>
     </div>
   </section>
-  <p class="status" id="storeStatus"></p>
+  <p class="status"><span id="storeStatus"></span> · Versão 3 (08/11/2026)</p>
 </main>
 <div class="toast" id="toast" hidden></div>
 
@@ -553,7 +553,15 @@ let promptInstalar=null;
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();promptInstalar=e;$("btnInstalar").hidden=false});
 $("btnInstalar").onclick=async()=>{if(!promptInstalar)return;promptInstalar.prompt();try{await promptInstalar.userChoice}catch(e){}promptInstalar=null;$("btnInstalar").hidden=true};
 window.addEventListener("appinstalled",()=>{$("btnInstalar").hidden=true;toast("App instalado.")});
-if("serviceWorker" in navigator&&location.protocol!=="file:"){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
+if("serviceWorker" in navigator&&location.protocol!=="file:"){
+  const tinhaSW=!!navigator.serviceWorker.controller;let recarregou=false;
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(tinhaSW&&!recarregou){recarregou=true;location.reload()}});
+  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>{
+    const checar=()=>reg.update().catch(()=>{});
+    document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checar()});
+    setInterval(checar,30*60*1000);
+  }).catch(()=>{}));
+}
 
 /* ---------- Geral ---------- */
 function renderBanner(){
