@@ -1,5 +1,5 @@
-// Caderno de Estudos — service worker (funciona offline)
-const VERSAO = "caderno-v1";
+// Método Calango — service worker (funciona offline)
+const VERSAO = "caderno-v2";
 const ARQUIVOS = ["./", "./index.html", "./manifest.webmanifest",
   "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png"];
 
