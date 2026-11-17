@@ -1,4 +1,4 @@
-# Caderno de Estudos — app (PWA)
+# Método Calango — app (PWA)
 
 App para controlar horas de estudo para concurso: cronômetro por disciplina, plano semanal por peso × nível de conhecimento, registro de questões e diagnóstico de onde melhorar. Funciona offline e instala na tela inicial do celular ou do computador.
 
@@ -38,5 +38,8 @@ Depois de aberto uma vez, o app funciona sem internet.
 - Desinstalar o app ou limpar os dados do navegador apaga o que está no aparelho. Por isso, exporte backups com frequência.
 
 ## Atualizar o app
+
+Este repositório é só do Método Calango (horas de estudo). O Método Camocim (app de questões) fica em outro repositório.
+
 
 Substitua o `index.html` no repositório e, em `sw.js`, troque `caderno-v1` por `caderno-v2` (e assim por diante). O app se atualiza na próxima vez que for aberto com internet.
