@@ -1,42 +1,22 @@
 {
-  "name": "Método Calango",
-  "short_name": "Método Calango",
-  "description": "Método Calango: cronômetro por disciplina, plano semanal e desempenho para estudos de concurso.",
+  "name": "Farol da Aprovação",
+  "short_name": "Farol",
+  "description": "Controle de estudos para concurso público: plano, cronômetro, revisões, questões, simulados e desempenho.",
   "lang": "pt-BR",
-  "start_url": "./index.html#cronometro",
+  "start_url": "./index.html#hoje",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#EEF1EC",
-  "theme_color": "#1F5C4E",
+  "background_color": "#12355B",
+  "theme_color": "#12355B",
   "icons": [
-    {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-maskable-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ],
   "shortcuts": [
-    {
-      "name": "Cronômetro",
-      "url": "./index.html#cronometro"
-    },
-    {
-      "name": "Desempenho",
-      "url": "./index.html#desempenho"
-    }
+    {"name": "Hoje", "url": "./index.html#hoje"},
+    {"name": "Estudar", "url": "./index.html#estudar"},
+    {"name": "Questões", "url": "./index.html#questoes"}
   ]
 }

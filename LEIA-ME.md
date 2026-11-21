@@ -1,45 +1,31 @@
-# Método Calango — app (PWA)
+# Farol da Aprovação — controle de estudos para concurso (versão 5)
 
-App para controlar horas de estudo para concurso: cronômetro por disciplina, plano semanal por peso × nível de conhecimento, registro de questões e diagnóstico de onde melhorar. Funciona offline e instala na tela inicial do celular ou do computador.
+Antigo Método Calango. Funciona no celular e no computador, instala como app e funciona sem internet.
+Os dados ficam só no aparelho; faça backups em Registro → Exportar backup.
 
-## Conteúdo da pasta
+## O que tem
 
-| Arquivo | Para que serve |
+| Aba | Para que serve |
 |---|---|
-| `index.html` | O app inteiro |
-| `manifest.webmanifest` | Nome, ícone e cores do app instalado |
-| `sw.js` | Faz o app funcionar sem internet |
-| `icons/` | Ícones do app |
+| Hoje | Contagem regressiva da prova, o que estudar hoje, revisões do dia, cadernos em andamento e caderno de erros |
+| Estudar | Cronômetro por disciplina e assunto (teoria, exercícios, revisão); agenda revisões em 1, 7 e 30 dias |
+| Questões | Cadernos linkados (Método Camocim, TecConcursos, Qconcursos), simulados com nota de corte e caderno de erros |
+| Edital | Concurso, banca, data da prova, nota de corte, disciplinas com peso e nível, assuntos do edital e plano semanal |
+| Evolução | Onde melhorar, gráfico semana a semana (horas e % de acerto), horas × meta, desempenho por disciplina e assuntos mais fracos |
+| Registro | Lançamento manual, histórico e backup |
 
-## Publicar grátis no GitHub Pages (uma vez só, ~10 minutos)
+## Integração com o Método Camocim
 
-O app precisa estar num endereço `https://` para ser instalável. O jeito mais simples:
+No Camocim, o botão **Enviar ao Farol** (em cada caderno e no resultado do simulado) abre o Farol com o resultado.
+O Farol pergunta em qual disciplina lançar e, se você quiser, anota as questões erradas no caderno de erros.
+O endereço do Farol fica no `config.js` do Camocim (`farolUrl`).
 
-1. Crie uma conta em https://github.com (se ainda não tiver).
-2. Clique em **New repository**, dê o nome `caderno-estudos`, marque **Public** e clique em **Create repository**.
-3. Na página do repositório, clique em **uploading an existing file** e arraste **todo o conteúdo desta pasta** (incluindo a pasta `icons`). Clique em **Commit changes**.
-4. Vá em **Settings → Pages**. Em *Branch*, escolha `main` e a pasta `/ (root)`. Clique em **Save**.
-5. Aguarde 1 a 2 minutos. O endereço aparece no topo da página, no formato `https://SEU-USUARIO.github.io/caderno-estudos/`.
+## Arquivos
 
-Alternativa sem conta no GitHub: arraste a pasta inteira em https://app.netlify.com/drop.
+`index.html`, `manifest.webmanifest`, `sw.js`, `LEIA-ME.md` e a pasta `icons` (4 ícones novos do farol).
 
-## Instalar
+## Atualizar no GitHub (repositório M-todo-Calango)
 
-- **Android (Chrome):** abra o endereço, toque no botão **Instalar app** no topo ou no menu ⋮ → **Instalar app**.
-- **iPhone (Safari):** abra o endereço, toque em **Compartilhar** → **Adicionar à Tela de Início**.
-- **Computador (Chrome/Edge):** clique no ícone de instalar na barra de endereço ou no botão **Instalar app**.
-
-Depois de aberto uma vez, o app funciona sem internet.
-
-## Seus dados
-
-- Ficam guardados **só no aparelho** onde você usa o app. Celular e computador têm dados separados.
-- Faça **backup** pela aba **Registro → Exportar backup (.json)**. Para levar os dados a outro aparelho, use **Importar backup** lá.
-- Desinstalar o app ou limpar os dados do navegador apaga o que está no aparelho. Por isso, exporte backups com frequência.
-
-## Atualizar o app
-
-Este repositório é só do Método Calango (horas de estudo). O Método Camocim (app de questões) fica em outro repositório.
-
-
-Substitua o `index.html` no repositório e, em `sw.js`, troque `caderno-v1` por `caderno-v2` (e assim por diante). O app se atualiza na próxima vez que for aberto com internet.
+1. Add file → Upload files → arraste todos os arquivos e a pasta `icons` → Commit changes.
+2. Espere o github-pages ficar verde. O app instalado se atualiza sozinho ao abrir.
+3. Os dados do Método Calango são trazidos automaticamente na primeira abertura.

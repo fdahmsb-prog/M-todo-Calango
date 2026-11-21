@@ -3,144 +3,219 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1F5C4E">
-<meta name="description" content="Cronômetro, plano semanal e desempenho para estudos de concurso.">
+<title>Farol da Aprovação</title>
+<meta name="theme-color" content="#12355B">
+<meta name="description" content="Controle de estudos para concurso público: plano, cronômetro, revisões, questões, simulados e desempenho.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Método Calango">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Método Calango</title>
+<meta name="apple-mobile-web-app-title" content="Farol">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: caderno de estudos — barra de abas fixa no topo, uma folha por aba, tabelas largas roláveis */
+/* Layout: faixa azul-marinho do farol no topo; folhas brancas por seção; navegação inferior no celular, abas no topo no computador */
 :root{
-  --bg:#EEF1EC; --paper:#FBFCF9; --ink:#1B2826; --muted:#5E6E69; --line:#D3DBD5;
-  --pine:#1F5C4E; --pine-soft:#DCEAE4; --marker:#F0CB3E; --marker-soft:#FBF0C2;
-  --teoria:#2E6F8E; --exerc:#1F5C4E; --rev:#B07A12;
-  --ok:#2F7D4F; --warn:#B7791F; --crit:#B23A2E; --ok-bg:#E2F1E7; --warn-bg:#FBEFD6; --crit-bg:#F8E1DE;
-  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
-  --body:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --bg:#F2F5F9; --paper:#FFFFFF; --ink:#0F2440; --muted:#5A6B80; --line:#D8E0EA;
+  --navy:#12355B; --navy-soft:#E3ECF6; --on-navy:#FFFFFF;
+  --head:#12355B; --head-ink:#F4F7FB; --head-muted:#A9BDD6;
+  --gold:#D99611; --gold-soft:#FDF1D6; --beam:#F0B739;
+  --teoria:#2F6DB5; --exerc:#1D7F8C; --rev:#C98A0B; --simu:#7A4FB5;
+  --ok:#25804B; --warn:#B26F0C; --crit:#B83A2B; --ok-bg:#E1F2E7; --warn-bg:#FCEFD5; --crit-bg:#F8E0DC;
+  --display:"Sora",ui-sans-serif,system-ui,sans-serif;
+  --body:"Source Sans 3",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#121A19; --paper:#18221F; --ink:#E4ECE8; --muted:#94A7A0; --line:#2C3A36;
-  --pine:#5FB39C; --pine-soft:#1F3631; --marker:#E9C44A; --marker-soft:#3A3318;
-  --teoria:#6AAFD0; --exerc:#5FB39C; --rev:#DDA94A;
-  --ok:#6BC28E; --warn:#E3AE55; --crit:#EB7B6E; --ok-bg:#1C3326; --warn-bg:#382C16; --crit-bg:#3A1F1C; color-scheme:dark}}
+  --bg:#0A1626; --paper:#10213A; --ink:#E6EEF7; --muted:#93A6BD; --line:#22385A;
+  --navy:#8FB8E8; --navy-soft:#18304F; --on-navy:#0A1626;
+  --head:#0D1C31; --head-ink:#EAF1F9; --head-muted:#8CA3BF;
+  --gold:#F2B739; --gold-soft:#3A2E12; --beam:#F2B739;
+  --teoria:#7AAEEA; --exerc:#4FB3BF; --rev:#F2B739; --simu:#B79AE6;
+  --ok:#6BC28E; --warn:#E8B15A; --crit:#EE7F70; --ok-bg:#16301F; --warn-bg:#382A12; --crit-bg:#3A1C19; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#121A19; --paper:#18221F; --ink:#E4ECE8; --muted:#94A7A0; --line:#2C3A36;
-  --pine:#5FB39C; --pine-soft:#1F3631; --marker:#E9C44A; --marker-soft:#3A3318;
-  --teoria:#6AAFD0; --exerc:#5FB39C; --rev:#DDA94A;
-  --ok:#6BC28E; --warn:#E3AE55; --crit:#EB7B6E; --ok-bg:#1C3326; --warn-bg:#382C16; --crit-bg:#3A1F1C; color-scheme:dark}
+  --bg:#0A1626; --paper:#10213A; --ink:#E6EEF7; --muted:#93A6BD; --line:#22385A;
+  --navy:#8FB8E8; --navy-soft:#18304F; --on-navy:#0A1626;
+  --head:#0D1C31; --head-ink:#EAF1F9; --head-muted:#8CA3BF;
+  --gold:#F2B739; --gold-soft:#3A2E12; --beam:#F2B739;
+  --teoria:#7AAEEA; --exerc:#4FB3BF; --rev:#F2B739; --simu:#B79AE6;
+  --ok:#6BC28E; --warn:#E8B15A; --crit:#EE7F70; --ok-bg:#16301F; --warn-bg:#382A12; --crit-bg:#3A1C19; color-scheme:dark}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0}
+html{-webkit-text-size-adjust:100%;background:var(--head)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;min-height:100vh}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
-.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
-header.top{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
-.top .wrap{padding-block:14px 0;display:flex;flex-direction:column;gap:10px}
-.brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-h1{font-family:var(--display);font-weight:700;font-size:1.55rem;margin:0;letter-spacing:-.01em;text-wrap:balance}
-h1 mark{background:linear-gradient(transparent 55%,var(--marker) 55%);color:inherit;padding:0 2px}
-.weekline{font-family:var(--mono);font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
-nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
-nav.tabs a{font-weight:600;font-size:.92rem;color:var(--muted);text-decoration:none;padding:8px 12px 10px;border-bottom:3px solid transparent;white-space:nowrap}
-@media (max-width:440px){nav.tabs a{padding:8px 7px 10px;font-size:.84rem}}
-nav.tabs a[aria-current="page"]{color:var(--ink);border-color:var(--pine)}
-nav.tabs a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
-h2{font-family:var(--display);font-weight:700;font-size:1.25rem;margin:0;text-wrap:balance}
-h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0;font-weight:600}
-.section{display:flex;flex-direction:column;gap:18px;padding-top:22px}
-.sheet{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
-.grid2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px}
-@media (max-width:820px){.grid2{grid-template-columns:minmax(0,1fr)}}
-.muted{color:var(--muted)} .small{font-size:.85rem}
-.banner{background:var(--marker-soft);border:1px dashed var(--warn);border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
-.banner p{margin:0;max-width:62ch}
-button{font:inherit;font-weight:600;font-size:.9rem;border-radius:8px;padding:8px 14px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
-button.primary{background:var(--pine);border-color:var(--pine);color:var(--paper)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+/* Cabeçalho */
+header.top{background:var(--head);color:var(--head-ink);position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top,0px)}
+.top .wrap{display:flex;align-items:center;gap:16px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;min-width:0}
+.brand svg{flex:none}
+.brand b{font-family:var(--display);font-weight:700;font-size:1.12rem;letter-spacing:-.01em;white-space:nowrap}
+.brand b em{font-style:normal;color:var(--beam)}
+.count-chip{font-family:var(--mono);font-size:.78rem;color:var(--head-ink);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:3px 10px;border-radius:99px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.count-chip b{color:var(--beam)}
+nav.tabs{display:flex;gap:2px;width:100%;overflow-x:auto;scrollbar-width:none;margin-bottom:-10px}
+nav.tabs a{color:var(--head-muted);text-decoration:none;font-weight:600;font-size:.95rem;padding:9px 13px 11px;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:7px}
+nav.tabs a svg{width:18px;height:18px}
+nav.tabs a[aria-current="page"]{color:var(--head-ink);border-color:var(--beam)}
+@media (max-width:719px){
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;margin:0;background:var(--paper);border-top:1px solid var(--line);z-index:30;
+    padding:4px max(6px,env(safe-area-inset-right,0px)) calc(4px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px));justify-content:space-between;overflow:visible}
+  nav.tabs a{flex:1;flex-direction:column;gap:2px;font-size:.68rem;padding:6px 2px;border:0;color:var(--muted);border-radius:10px;min-width:0}
+  nav.tabs a svg{width:22px;height:22px}
+  nav.tabs a[aria-current="page"]{color:var(--navy);background:var(--navy-soft)}
+  main.wrap{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
+}
+main.wrap{padding-block:20px 56px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* Tipografia */
+h1,h2{font-family:var(--display);font-weight:700;letter-spacing:-.015em;margin:0;text-wrap:balance}
+h1{font-size:1.5rem} h2{font-size:1.12rem}
+h3{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:0;font-weight:700}
+p{margin:0}
+.muted{color:var(--muted)} .small{font-size:.87rem} .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.section{display:flex;flex-direction:column;gap:16px}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)}}
+/* Controles */
+button,.btn{font:inherit;font-weight:600;font-size:.92rem;border-radius:9px;padding:8px 14px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;justify-content:center;line-height:1.3}
+button.primary,.btn.primary{background:var(--navy);border-color:var(--navy);color:var(--on-navy)}
+button.gold,.btn.gold{background:var(--beam);border-color:var(--beam);color:#1A1405}
 button.ghost{background:transparent}
 button.danger{color:var(--crit);border-color:var(--crit)}
+button.sm,.btn.sm{padding:4px 10px;font-size:.84rem}
 button:disabled{opacity:.45;cursor:not-allowed}
-button.icon{padding:4px 9px;font-size:.82rem}
-label{display:flex;flex-direction:column;gap:4px;font-size:.8rem;font-weight:600;color:var(--muted)}
-input,select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:7px 9px;min-width:0}
+label{display:flex;flex-direction:column;gap:4px;font-size:.8rem;font-weight:600;color:var(--muted);min-width:0}
+input,select,textarea{font:inherit;font-size:.97rem;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-width:0;width:100%}
+textarea{resize:vertical;min-height:64px}
 input[type=number]{font-family:var(--mono);font-variant-numeric:tabular-nums}
+input[type=checkbox]{width:auto}
+label.check{flex-direction:row;align-items:center;gap:8px;font-weight:500;font-size:.92rem;color:var(--ink)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
-.row > label{flex:1 1 130px}
+.row > label{flex:1 1 140px}
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:6px 12px;font-size:.88rem;border-radius:7px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+/* Pílulas e estados */
+.pill{display:inline-block;font-size:.74rem;font-weight:700;padding:2px 9px;border-radius:99px;letter-spacing:.02em;white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.crit{background:var(--crit-bg);color:var(--crit)}
+.pill.none{background:var(--bg);color:var(--muted);border:1px solid var(--line)} .pill.info{background:var(--navy-soft);color:var(--navy)} .pill.gold{background:var(--gold-soft);color:var(--gold)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+.status{font-size:.8rem;color:var(--muted);text-align:center;padding-top:10px}
+/* Hoje */
+.hero{background:var(--head);color:var(--head-ink);border-radius:16px;padding:20px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-70px;width:320px;height:220px;background:radial-gradient(closest-side,rgba(240,183,57,.26),rgba(240,183,57,0));pointer-events:none}
+.hero .big{font-family:var(--display);font-size:3rem;font-weight:700;line-height:1;color:var(--beam);font-variant-numeric:tabular-nums}
+.hero .big small{font-size:1rem;color:var(--head-ink);font-weight:600;margin-left:4px}
+.hero p{color:var(--head-muted)} .hero h2{color:var(--head-ink)}
+.hero .btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:var(--head-ink)}
+@media (max-width:520px){.hero{grid-template-columns:minmax(0,1fr)}}
+.meter{display:flex;flex-direction:column;gap:6px}
+.meter .bar{height:10px;background:var(--bg);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.meter .bar i{display:block;height:100%;background:var(--navy)}
+.meter .bar i.gold{background:var(--beam)}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.item{display:grid;grid-template-columns:5px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px 10px 0;overflow:hidden}
+.item::before{content:"";align-self:stretch;background:var(--stripe,var(--line));border-radius:0 3px 3px 0}
+.item .t{font-weight:600;line-height:1.3}
+.item .s{font-size:.86rem;color:var(--muted)}
+.item .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.item.crit{--stripe:var(--crit)} .item.warn{--stripe:var(--warn)} .item.ok{--stripe:var(--ok)} .item.info{--stripe:var(--navy)} .item.gold{--stripe:var(--beam)}
+@media (max-width:520px){.item{grid-template-columns:5px minmax(0,1fr)}.item .acts{grid-column:2;justify-content:flex-start}}
 /* Cronômetro */
 .tipos{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.tipos button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px;text-align:left;font-weight:600}
-.tipos button small{font-weight:400;color:var(--muted);font-family:var(--mono);font-size:.75rem}
-.tipos button[aria-pressed="true"]{border-color:var(--tc);box-shadow:inset 0 -4px 0 var(--tc);background:var(--pine-soft)}
-.clock{font-family:var(--mono);font-size:clamp(3rem,13vw,5.6rem);font-weight:500;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;text-align:center;padding:10px 0}
-.clock.run{color:var(--pine)}
-.clock-sub{text-align:center;font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.tipos button{flex-direction:column;align-items:flex-start;gap:2px;padding:10px;text-align:left}
+.tipos button small{font-weight:400;color:var(--muted);font-family:var(--mono);font-size:.74rem}
+.tipos button[aria-pressed="true"]{border-color:var(--tc);box-shadow:inset 0 -4px 0 var(--tc);background:var(--navy-soft)}
+.clock{font-family:var(--mono);font-size:clamp(3rem,13vw,5.4rem);font-weight:500;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;text-align:center;padding:8px 0}
+.clock.run{color:var(--navy)}
 .ctrls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.ctrls button{min-width:110px}
-.progress{height:8px;background:var(--line);border-radius:5px;overflow:hidden}
-.progress > i{display:block;height:100%;background:var(--pine)}
+.ctrls button{min-width:108px}
 .savebox{border-top:1px dashed var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
 /* Tabelas */
-.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
-table{border-collapse:collapse;width:100%;font-size:.9rem}
-th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
-th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;background:var(--bg)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;vertical-align:middle}
+th{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;background:var(--bg)}
 td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+td.wrap-cell{white-space:normal;min-width:180px}
 tr:last-child td{border-bottom:0}
-td input,td select{padding:5px 7px;font-size:.88rem}
-td input.nome{min-width:190px;width:100%}
-td input.peso{width:70px}
-tfoot td{font-weight:600;background:var(--bg)}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
-.pill{display:inline-block;font-size:.74rem;font-weight:600;padding:2px 8px;border-radius:99px;letter-spacing:.02em}
-.pill.ok{background:var(--ok-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)} .pill.crit{background:var(--crit-bg);color:var(--crit)} .pill.none{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
-/* Barras semanais */
-.bars{display:flex;flex-direction:column;gap:10px}
-.bar{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:.88rem}
-.bar .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bar .tr{height:16px;background:var(--bg);border:1px solid var(--line);border-radius:4px;position:relative;overflow:hidden;display:flex}
-.bar .tr i{display:block;height:100%}
-.bar .v{font-family:var(--mono);font-size:.8rem;text-align:right;font-variant-numeric:tabular-nums}
-@media (max-width:520px){.bar{grid-template-columns:minmax(0,1fr) 80px}.bar .tr{grid-column:1/-1;grid-row:2}}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+tfoot td{font-weight:700;background:var(--bg)}
+td input,td select{padding:5px 7px;font-size:.9rem}
+td input.nome{min-width:180px}
+td input.peso{width:68px}
+/* Assuntos */
+.assuntos{background:var(--bg);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--paper);border-radius:99px;padding:3px 4px 3px 10px;font-size:.86rem;max-width:100%}
+.chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip button{border:0;padding:2px 8px;font-size:.72rem;border-radius:99px}
+.chip.pendente button.st{background:var(--bg);color:var(--muted)}
+.chip.estudado button.st{background:var(--navy-soft);color:var(--navy)}
+.chip.revisado button.st{background:var(--ok-bg);color:var(--ok)}
+.chip button.x{background:transparent;color:var(--muted)}
 /* KPIs */
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.kpi{background:var(--paper);padding:14px 16px;display:flex;flex-direction:column;gap:2px}
-.kpi b{font-family:var(--display);font-size:1.6rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15}
-.kpi span{font-size:.78rem;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.kpi{background:var(--paper);padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi b{font-family:var(--display);font-size:1.55rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15}
+.kpi span{font-size:.8rem;color:var(--muted)}
 @media (max-width:640px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
-/* Diagnóstico */
-.diag{display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0}
-.diag li{display:grid;grid-template-columns:6px minmax(0,1fr);gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px 10px 0;overflow:hidden}
-.diag li::before{content:"";background:var(--sev);border-radius:0 3px 3px 0}
-.diag .t{font-weight:600}
-.diag p{margin:2px 0 0;max-width:72ch;font-size:.9rem}
-.diag li.crit{--sev:var(--crit)} .diag li.warn{--sev:var(--warn)} .diag li.ok{--sev:var(--ok)}
-.empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
-.status{font-size:.78rem;color:var(--muted)}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:20}
-@media (prefers-reduced-motion:no-preference){.clock.run{transition:color .3s}}
+/* Barras */
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 96px;gap:10px;align-items:center;font-size:.9rem}
+.bar .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .tr{height:16px;background:var(--bg);border:1px solid var(--line);border-radius:5px;position:relative;overflow:hidden;display:flex}
+.bar .tr i{display:block;height:100%}
+.bar .v{font-family:var(--mono);font-size:.8rem;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:520px){.bar{grid-template-columns:minmax(0,1fr) auto}.bar .tr{grid-column:1/-1;grid-row:2}}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+.chart{width:100%;overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:320px;height:auto}
+.chart text{fill:var(--muted);font-family:var(--mono);font-size:11px}
+/* Cartões de caderno */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.qcard{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--paper)}
+.qcard .top-line{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.qcard .nm{font-weight:700;line-height:1.3}
+.qcard .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.inline-form{display:flex;flex-direction:column;gap:8px;background:var(--bg);border-radius:10px;padding:10px}
+/* Banner, toast, diálogo */
+.banner{background:var(--gold-soft);border:1px dashed var(--gold);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.banner p{max-width:64ch}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;font-weight:600;font-size:.92rem;z-index:50;max-width:calc(100% - 32px)}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);padding:0;width:min(560px,calc(100% - 24px));max-height:calc(100% - 40px)}
+dialog::backdrop{background:rgba(5,14,28,.55)}
+dialog .dlg{padding:20px;display:flex;flex-direction:column;gap:14px}
+details > summary{cursor:pointer;font-weight:600;list-style:none}
+details > summary::-webkit-details-marker{display:none}
+details > summary::before{content:"▸ ";color:var(--muted)}
+details[open] > summary::before{content:"▾ "}
+@media (prefers-reduced-motion:no-preference){.clock.run{transition:color .3s} .meter .bar i{transition:width .4s}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
     <div class="brand">
-      <h1>Método <mark>Calango</mark></h1>
-      <div class="row" style="align-items:center;gap:10px"><div class="weekline" id="weekline"></div><button class="icon primary" id="btnInstalar" hidden>Instalar app</button></div>
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 8 3 4v8z M16 8l13-4v8z" fill="#F0B739" opacity=".55"/><path d="M13 10h6l2 17H11z" fill="#F4F7FB"/><path d="M12.4 15h7.2l.5 4h-8.2z" fill="#D6523D"/><rect x="13" y="5" width="6" height="5" fill="#F0B739"/><path d="M12 5h8l-4-3z" fill="#F4F7FB"/><rect x="7" y="27" width="18" height="2.4" rx="1.2" fill="#1D7F8C"/></svg>
+      <b>Farol da <em>Aprovação</em></b>
     </div>
+    <span class="count-chip" id="countChip" hidden></span>
+    <button class="sm gold" id="btnInstalar" hidden>Instalar app</button>
     <nav class="tabs" aria-label="Seções">
-      <a href="#cronometro" data-tab="cronometro">Cronômetro</a>
-      <a href="#plano" data-tab="plano">Plano semanal</a>
-      <a href="#registro" data-tab="registro">Registro</a>
-      <a href="#desempenho" data-tab="desempenho">Desempenho</a>
+      <a href="#hoje" data-tab="hoje"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Hoje</a>
+      <a href="#estudar" data-tab="estudar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Estudar</a>
+      <a href="#questoes" data-tab="questoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>Questões</a>
+      <a href="#edital" data-tab="edital"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 3h8l4 4v14H7z"/><path d="M10 12h6M10 16h6M10 8h2"/></svg>Edital</a>
+      <a href="#evolucao" data-tab="evolucao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 20h18M6 16l4-5 3 3 5-7"/></svg>Evolução</a>
+      <a href="#registro" data-tab="registro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Registro</a>
     </nav>
   </div>
 </header>
@@ -148,19 +223,43 @@ tfoot td{font-weight:600;background:var(--bg)}
 <main class="wrap">
   <div id="bannerSlot"></div>
 
-  <!-- CRONÔMETRO -->
-  <section class="section" id="tab-cronometro">
+  <!-- HOJE -->
+  <section class="section" id="tab-hoje">
+    <div class="hero" id="hero"></div>
+    <div class="grid2">
+      <div class="sheet">
+        <div class="sheet-head"><h2>Estudar hoje</h2><span class="small muted mono" id="hojeMeta"></span></div>
+        <div class="meter"><div class="bar"><i id="hojeBar" style="width:0%"></i></div></div>
+        <ul class="list" id="hojeSug"></ul>
+      </div>
+      <div class="sheet">
+        <div class="sheet-head"><h2>Revisões do dia</h2><span class="pill info" id="revCount"></span></div>
+        <ul class="list" id="hojeRev"></ul>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="sheet">
+        <div class="sheet-head"><h2>Questões em andamento</h2><a class="btn sm" href="#questoes">Ver todas</a></div>
+        <ul class="list" id="hojeCad"></ul>
+      </div>
+      <div class="sheet">
+        <div class="sheet-head"><h2>Caderno de erros</h2><a class="btn sm" href="#questoes" data-sub="erros">Abrir</a></div>
+        <ul class="list" id="hojeErr"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTUDAR -->
+  <section class="section" id="tab-estudar" hidden>
     <div class="grid2">
       <div class="sheet">
         <div class="row">
-          <label for="cDisc" style="flex:2 1 220px">Disciplina<select id="cDisc"></select></label>
+          <label for="cDisc" style="flex:2 1 200px">Disciplina<select id="cDisc"></select></label>
+          <label for="cAss" style="flex:2 1 200px">Assunto<select id="cAss"></select></label>
         </div>
-        <div>
-          <h3 style="margin-bottom:6px">Tipo de estudo</h3>
-          <div class="tipos" id="cTipos"></div>
-        </div>
+        <div><h3 style="margin-bottom:6px">Tipo de estudo</h3><div class="tipos" id="cTipos"></div></div>
         <div class="clock" id="clock">00:00:00</div>
-        <div class="clock-sub" id="clockSub"></div>
+        <div class="small muted" style="text-align:center" id="clockSub"></div>
         <div class="ctrls">
           <button class="primary" id="btnStart">Iniciar</button>
           <button id="btnStop">Concluir</button>
@@ -169,10 +268,12 @@ tfoot td{font-weight:600;background:var(--bg)}
         <div class="savebox" id="saveBox" hidden>
           <h3>Salvar esta sessão</h3>
           <div class="row">
-            <label for="sMin">Minutos estudados<input id="sMin" type="number" min="1" step="1"></label>
+            <label for="sMin">Minutos<input id="sMin" type="number" min="1" step="1"></label>
             <label for="sQ">Questões feitas<input id="sQ" type="number" min="0" step="1" value="0"></label>
             <label for="sA">Acertos<input id="sA" type="number" min="0" step="1" value="0"></label>
           </div>
+          <label class="check" id="sRevWrap"><input type="checkbox" id="sRev" checked> Agendar revisões em 1, 7 e 30 dias</label>
+          <label class="check"><input type="checkbox" id="sMarca" checked> Marcar o assunto como estudado no edital</label>
           <div class="row">
             <button class="primary" id="btnSave">Salvar sessão</button>
             <button class="ghost" id="btnCancelSave">Voltar ao cronômetro</button>
@@ -181,30 +282,150 @@ tfoot td{font-weight:600;background:var(--bg)}
         </div>
       </div>
       <div class="sheet">
-        <h3>Meta desta semana para a disciplina</h3>
+        <h3>Meta da semana nesta disciplina</h3>
         <div id="cMeta"></div>
+        <h3>Revisões pendentes desta disciplina</h3>
+        <div id="cRev"></div>
         <h3>Últimas sessões</h3>
         <div id="cUltimas"></div>
       </div>
     </div>
   </section>
 
-  <!-- PLANO -->
-  <section class="section" id="tab-plano" hidden>
-    <div class="sheet">
-      <div class="row" style="justify-content:space-between;align-items:center">
-        <h2>Distribuição das horas</h2>
-        <label for="hSemana" style="flex:0 0 170px">Horas disponíveis por semana<input id="hSemana" type="number" min="1" step="0.5"></label>
+  <!-- QUESTÕES -->
+  <section class="section" id="tab-questoes" hidden>
+    <div class="seg" role="group" aria-label="Tipo" id="qSeg">
+      <button type="button" data-sub="cadernos" aria-pressed="true">Cadernos e links</button>
+      <button type="button" data-sub="simulados" aria-pressed="false">Simulados</button>
+      <button type="button" data-sub="erros" aria-pressed="false">Caderno de erros</button>
+    </div>
+
+    <div id="sub-cadernos" class="section">
+      <div class="sheet">
+        <div class="sheet-head"><h2>Linkar um caderno de questões</h2></div>
+        <p class="small muted" style="max-width:72ch">Cole o link de um caderno do Método Camocim, do TecConcursos ou de outro banco. Um toque abre as questões; quando voltar, lance quantas fez e acertou. Resultados enviados pelo Método Camocim entram sozinhos.</p>
+        <div class="row">
+          <label for="kNome" style="flex:2 1 220px">Nome do caderno<input id="kNome" placeholder="ex.: ICMS – substituição tributária"></label>
+          <label for="kFonte">Fonte<select id="kFonte"><option>Método Camocim</option><option>TecConcursos</option><option>Qconcursos</option><option>Outro</option></select></label>
+        </div>
+        <div class="row">
+          <label for="kLink" style="flex:3 1 260px">Link<input id="kLink" type="url" placeholder="https://…"></label>
+          <label for="kQtd" style="flex:0 1 110px">Questões<input id="kQtd" type="number" min="1" step="1" placeholder="ex.: 40"></label>
+        </div>
+        <div class="row">
+          <label for="kDisc">Disciplina<select id="kDisc"></select></label>
+          <label for="kAss">Assunto<select id="kAss"></select></label>
+          <button class="primary" id="btnAddCad">Adicionar caderno</button>
+        </div>
+        <div class="small" id="kErr" style="color:var(--crit)"></div>
       </div>
-      <p class="small muted" style="margin:0;max-width:78ch">Prioridade = peso da matéria × (6 − nível de conhecimento). Quanto mais pesada a matéria e menor o seu domínio, mais horas ela recebe. O nível também define a divisão: quem sabe pouco começa pela teoria; quem já domina gasta mais tempo em questões e revisão.</p>
-      <div class="tbl"><table id="planoTbl"></table></div>
+      <div class="cards" id="cadList"></div>
+    </div>
+
+    <div id="sub-simulados" class="section" hidden>
+      <div class="sheet">
+        <h2>Registrar simulado</h2>
+        <div class="row">
+          <label for="mData" style="flex:0 1 160px">Data<input id="mData" type="date"></label>
+          <label for="mNome" style="flex:2 1 220px">Nome<input id="mNome" placeholder="ex.: Simulado 3 – FCC"></label>
+          <label for="mBanca" style="flex:1 1 120px">Banca<input id="mBanca" placeholder="FCC, FGV, Cebraspe…"></label>
+        </div>
+        <div class="row">
+          <label for="mLink" style="flex:3 1 240px">Link (opcional)<input id="mLink" type="url" placeholder="https://…"></label>
+          <label for="mMin" style="flex:0 1 110px">Minutos<input id="mMin" type="number" min="0" step="1"></label>
+          <label for="mCorte" style="flex:0 1 130px">Nota de corte (%)<input id="mCorte" type="number" min="0" max="100" step="0.5"></label>
+        </div>
+        <details id="mDetail">
+          <summary>Questões e acertos por disciplina</summary>
+          <div class="tbl" style="margin-top:10px"><table id="mTbl"></table></div>
+        </details>
+        <div class="row">
+          <label for="mQ" style="flex:0 1 130px">Total de questões<input id="mQ" type="number" min="1" step="1"></label>
+          <label for="mA" style="flex:0 1 130px">Acertos<input id="mA" type="number" min="0" step="1"></label>
+          <button class="primary" id="btnAddSim">Salvar simulado</button>
+        </div>
+        <p class="small muted">Se preencher por disciplina, o total é somado sozinho e o desempenho de cada matéria também é atualizado. Para provas Cebraspe com desconto, lance os acertos líquidos (certas menos erradas).</p>
+        <div class="small" id="mErr" style="color:var(--crit)"></div>
+      </div>
+      <div class="sheet">
+        <div class="sheet-head"><h2>Nota × nota de corte</h2><div class="legend"><span><i class="dot" style="background:var(--simu)"></i>Sua nota</span><span><i class="dot" style="background:var(--crit)"></i>Nota de corte</span></div></div>
+        <div class="chart" id="simChart"></div>
+        <div id="simList"></div>
+      </div>
+    </div>
+
+    <div id="sub-erros" class="section" hidden>
+      <div class="sheet">
+        <h2>Anotar questão errada</h2>
+        <div class="row">
+          <label for="eDisc">Disciplina<select id="eDisc"></select></label>
+          <label for="eAss">Assunto<select id="eAss"></select></label>
+          <label for="eMot">Por que errei<select id="eMot"><option>Não sabia o conteúdo</option><option>Confundi conceitos</option><option>Interpretação do enunciado</option><option>Falta de atenção</option><option>Pegadinha da banca</option><option>Chute</option></select></label>
+        </div>
+        <label for="eTxt">O que a questão cobrava / o que aprendi<textarea id="eTxt" placeholder="ex.: Na ST, a base de cálculo inclui o frete quando…"></textarea></label>
+        <div class="row">
+          <label for="eLink" style="flex:3 1 240px">Link da questão (opcional)<input id="eLink" type="url" placeholder="https://…"></label>
+          <label for="eQuando" style="flex:0 1 150px">Refazer em<select id="eQuando"><option value="1">1 dia</option><option value="3">3 dias</option><option value="7" selected>7 dias</option><option value="15">15 dias</option></select></label>
+          <button class="primary" id="btnAddErr">Anotar</button>
+        </div>
+        <div class="small" id="eErr" style="color:var(--crit)"></div>
+      </div>
+      <div class="sheet">
+        <div class="sheet-head">
+          <h2>Para refazer</h2>
+          <div class="seg" id="eSeg"><button type="button" data-f="pend" aria-pressed="true">Pendentes</button><button type="button" data-f="res" aria-pressed="false">Resolvidas</button></div>
+        </div>
+        <div id="eMotivos" class="chips"></div>
+        <ul class="list" id="errList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITAL -->
+  <section class="section" id="tab-edital" hidden>
+    <div class="sheet">
+      <h2>Concurso e prova</h2>
       <div class="row">
-        <button id="btnAddDisc">Adicionar disciplina</button>
+        <label for="dConc" style="flex:2 1 220px">Concurso<input id="dConc" placeholder="ex.: SEFAZ – Auditor Fiscal"></label>
+        <label for="dBanca">Banca<input id="dBanca" placeholder="ex.: FCC"></label>
+        <label for="dData">Data da prova<input id="dData" type="date"></label>
+      </div>
+      <div class="row">
+        <label for="dCorte" style="flex:0 1 160px">Nota de corte (%)<input id="dCorte" type="number" min="0" max="100" step="0.5"></label>
+        <label for="dHoras" style="flex:0 1 190px">Horas de estudo por semana<input id="dHoras" type="number" min="1" step="0.5"></label>
       </div>
     </div>
     <div class="sheet">
-      <h3>Divisão teoria / exercícios / revisão por nível</h3>
-      <div class="tbl"><table id="splitTbl"></table></div>
+      <div class="sheet-head"><h2>Disciplinas, pesos e plano semanal</h2><button id="btnAddDisc">Adicionar disciplina</button></div>
+      <p class="small muted" style="max-width:80ch">Prioridade = peso × (6 − nível de conhecimento). Matéria pesada e pouco dominada recebe mais horas. O nível também define a divisão: quem sabe pouco começa pela teoria; quem domina gasta mais tempo em questões e revisão. Use “Assuntos” para colar os tópicos do edital.</p>
+      <div class="tbl"><table id="planoTbl"></table></div>
+      <div id="assPanel"></div>
+    </div>
+  </section>
+
+  <!-- EVOLUÇÃO -->
+  <section class="section" id="tab-evolucao" hidden>
+    <div class="kpis" id="kpis"></div>
+    <div class="sheet">
+      <h2>Onde melhorar</h2>
+      <ul class="list" id="diag"></ul>
+    </div>
+    <div class="sheet">
+      <div class="sheet-head"><h2>Evolução semana a semana</h2><div class="legend"><span><i class="dot" style="background:var(--navy-soft);border:1px solid var(--navy)"></i>Horas estudadas</span><span><i class="dot" style="background:var(--beam)"></i>% de acerto</span></div></div>
+      <div class="chart" id="evoChart"></div>
+    </div>
+    <div class="sheet">
+      <div class="sheet-head"><h2>Horas da semana × meta</h2><div class="legend"><span><i class="dot" style="background:var(--teoria)"></i>Teoria</span><span><i class="dot" style="background:var(--exerc)"></i>Exercícios</span><span><i class="dot" style="background:var(--rev)"></i>Revisão</span><span>tracejado = meta</span></div></div>
+      <div class="bars" id="bars"></div>
+    </div>
+    <div class="sheet">
+      <h2>Questões por disciplina</h2>
+      <div class="tbl"><table id="perfTbl"></table></div>
+      <p class="small muted">Referência: abaixo de 60% de acerto é crítico, de 60% a 74% pede atenção, 75% ou mais está no caminho. Com menos de 10 questões o percentual ainda não é confiável. Inclui sessões, cadernos e simulados.</p>
+    </div>
+    <div class="sheet">
+      <h2>Assuntos mais fracos</h2>
+      <div id="assFracos"></div>
     </div>
   </section>
 
@@ -213,9 +434,10 @@ tfoot td{font-weight:600;background:var(--bg)}
     <div class="sheet">
       <h2>Lançar sessão manualmente</h2>
       <div class="row">
-        <label for="rData">Data<input id="rData" type="date"></label>
-        <label for="rDisc" style="flex:2 1 200px">Disciplina<select id="rDisc"></select></label>
-        <label for="rTipo">Tipo<select id="rTipo"><option value="teoria">Teoria</option><option value="exercicio">Exercícios</option><option value="revisao">Revisão</option></select></label>
+        <label for="rData" style="flex:0 1 160px">Data<input id="rData" type="date"></label>
+        <label for="rDisc">Disciplina<select id="rDisc"></select></label>
+        <label for="rAss">Assunto<select id="rAss"></select></label>
+        <label for="rTipo" style="flex:0 1 140px">Tipo<select id="rTipo"><option value="teoria">Teoria</option><option value="exercicio">Exercícios</option><option value="revisao">Revisão</option></select></label>
       </div>
       <div class="row">
         <label for="rMin">Minutos<input id="rMin" type="number" min="1" step="1" placeholder="ex.: 50"></label>
@@ -226,18 +448,15 @@ tfoot td{font-weight:600;background:var(--bg)}
       <div class="small" id="regErr" style="color:var(--crit)"></div>
     </div>
     <div class="sheet">
-      <div class="row" style="justify-content:space-between;align-items:center">
-        <h2>Histórico</h2>
-        <label for="fDisc" style="flex:0 1 240px">Filtrar<select id="fDisc"></select></label>
-      </div>
+      <div class="sheet-head"><h2>Histórico</h2><label for="fDisc" style="flex:0 1 240px">Filtrar<select id="fDisc"></select></label></div>
       <div id="histWrap"></div>
     </div>
     <div class="sheet">
       <h2>Backup dos dados</h2>
-      <p class="small muted" style="margin:0;max-width:70ch">Seus dados ficam guardados só neste aparelho. Exporte um backup de vez em quando e use-o para restaurar ou para levar os dados para outro aparelho. Importar substitui tudo o que está aqui.</p>
+      <p class="small muted" style="max-width:72ch">Seus dados ficam só neste aparelho. Exporte um backup de vez em quando para restaurar ou levar a outro aparelho. Importar substitui tudo o que está aqui. Backups do Método Calango também são aceitos.</p>
       <div class="row">
         <button id="btnExport">Exportar backup (.json)</button>
-        <label for="fImport" style="flex:0 1 auto"><span class="small">Importar backup</span><input id="fImport" type="file" accept="application/json,.json"></label>
+        <label for="fImport" style="flex:0 1 260px">Importar backup<input id="fImport" type="file" accept="application/json,.json"></label>
       </div>
       <div class="row" id="importConfirm" hidden>
         <span class="small" id="importInfo"></span>
@@ -245,317 +464,546 @@ tfoot td{font-weight:600;background:var(--bg)}
         <button class="ghost" id="btnImportCancel">Cancelar</button>
       </div>
     </div>
+    <p class="status"><span id="storeStatus"></span> · Versão 5 (21/11/2026)</p>
   </section>
-
-  <!-- DESEMPENHO -->
-  <section class="section" id="tab-desempenho" hidden>
-    <div class="kpis" id="kpis"></div>
-    <div class="sheet">
-      <h2>Onde melhorar</h2>
-      <ul class="diag" id="diag"></ul>
-    </div>
-    <div class="sheet">
-      <div class="row" style="justify-content:space-between;align-items:center">
-        <h2>Horas da semana × meta</h2>
-        <div class="legend"><span><i class="dot" style="background:var(--teoria)"></i>Teoria</span><span><i class="dot" style="background:var(--exerc)"></i>Exercícios</span><span><i class="dot" style="background:var(--rev)"></i>Revisão</span><span>trilho = meta</span></div>
-      </div>
-      <div class="bars" id="bars"></div>
-    </div>
-    <div class="sheet">
-      <h2>Questões e acertos por disciplina</h2>
-      <div class="tbl"><table id="perfTbl"></table></div>
-      <p class="small muted" style="margin:0">Referência usada: abaixo de 60% de acerto é crítico, de 60% a 74% pede atenção, 75% ou mais está no caminho. Com menos de 10 questões o percentual ainda não é confiável.</p>
-    </div>
-  </section>
-  <p class="status"><span id="storeStatus"></span> · Versão 4 (17/11/2026)</p>
 </main>
+
+<dialog id="dlgRes"><div class="dlg" id="dlgResBody"></div></dialog>
 <div class="toast" id="toast" hidden></div>
 
 <script>
 (function(){
 "use strict";
+/* ================= utilidades ================= */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const pad=n=>String(n).padStart(2,"0");
+const isoDe=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const hoje=()=>isoDe(new Date());
+const addDias=(iso,n)=>{const d=new Date(iso+"T12:00");d.setDate(d.getDate()+n);return isoDe(d)};
+const diasEntre=(a,b)=>Math.round((new Date(b+"T12:00")-new Date(a+"T12:00"))/864e5);
+const fmtData=s=>{if(!s)return"";const [y,m,d]=s.split("-");return d+"/"+m+"/"+y.slice(2)};
+function fmtH(min){min=Math.round(min||0);const h=Math.floor(min/60),m=min%60;return h?(h+"h"+(m?pad(m):"")):(m+"min")}
+function semanaInicio(ref){const d=ref?new Date(ref+"T12:00"):new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d}
+const pctTxt=(q,a)=>q?Math.round(100*a/q)+"%":"—";
+const norm=s=>String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/\s+/g," ").trim();
+const safeUrl=u=>/^https?:\/\//i.test(String(u||"").trim())?String(u).trim():"";
+function LS(k,v){try{if(v===undefined){const r=localStorage.getItem(k);return r?JSON.parse(r):null}localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return null}}
+let tt=null;function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2800)}
+function armar(btn,texto,acao){if(btn.dataset.arm){acao();return}const orig=btn.textContent;btn.dataset.arm="1";btn.textContent=texto;btn.classList.add("danger");setTimeout(()=>{if(btn.isConnected){delete btn.dataset.arm;btn.textContent=orig;btn.classList.remove("danger")}},4000)}
+
 const TIPOS={teoria:{nome:"Teoria",cor:"var(--teoria)"},exercicio:{nome:"Exercícios",cor:"var(--exerc)"},revisao:{nome:"Revisão",cor:"var(--rev)"}};
 const NIVEIS=["","1 · Não conheço","2 · Básico","3 · Intermediário","4 · Bom","5 · Domino"];
 const SPLIT={1:[55,30,15],2:[45,38,17],3:[35,45,20],4:[25,50,25],5:[15,55,30]};
-const $=id=>document.getElementById(id);
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const pad=n=>String(n).padStart(2,"0");
-const hoje=()=>{const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())};
-function fmtH(min){min=Math.round(min||0);const h=Math.floor(min/60),m=min%60;return h?(h+"h"+(m?pad(m):"")):(m+"min")}
-function fmtData(s){const [y,m,d]=s.split("-");return d+"/"+m+"/"+y.slice(2)}
-function semanaInicio(){const d=new Date();d.setHours(0,0,0,0);const dow=(d.getDay()+6)%7;d.setDate(d.getDate()-dow);return d}
-function isoDe(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
-function diasEntre(a,b){return Math.round((new Date(b+"T12:00")-new Date(a+"T12:00"))/864e5)}
+const ETAPAS=[1,7,30];
 
-/* ---------- Exemplo ---------- */
-function exemplo(){
-  const ds=[["Língua Portuguesa",3,3],["Raciocínio Lógico-Matemático",2,4],["Direito Constitucional",2,2],["Direito Administrativo",2,2],["Direito Tributário",4,3],["Contabilidade Geral",3,1],["Legislação Tributária Estadual",4,2]]
-    .map(([nome,peso,nivel])=>({id:uid(),nome,peso,nivel}));
-  const s=[];const ini=semanaInicio();
-  const add=(off,i,tipo,min,q,a)=>{const d=new Date(ini);d.setDate(d.getDate()+off);if(isoDe(d)>hoje())return;s.push({id:uid(),data:isoDe(d),disc:ds[i].id,tipo,min,questoes:q,acertos:a})};
-  add(-6,0,"exercicio",60,40,31);add(-5,4,"teoria",90,0,0);add(-4,5,"teoria",80,0,0);add(-3,4,"exercicio",60,30,15);add(-2,2,"teoria",50,0,0);add(-1,6,"teoria",70,0,0);
-  add(0,4,"teoria",90,0,0);add(0,1,"exercicio",45,20,17);add(1,5,"exercicio",50,25,11);add(1,0,"revisao",30,0,0);add(2,6,"exercicio",40,20,13);add(2,3,"teoria",60,0,0);add(3,4,"exercicio",50,30,19);add(4,0,"exercicio",40,25,20);
-  return {cfg:{horasSemana:20,disciplinas:ds},sessoes:s};
+/* ================= estado ================= */
+const VAZIO=()=>({versao:5,edital:{concurso:"",banca:"",dataProva:"",notaCorte:70},horasSemana:20,disciplinas:[],sessoes:[],revisoes:[],erros:[],simulados:[],cadernos:[]});
+let D=VAZIO();
+let exemplo=false;
+
+function migrarCalango(cfg,ses){
+  const d=VAZIO();
+  d.horasSemana=Number(cfg&&cfg.horasSemana)||20;
+  d.disciplinas=((cfg&&cfg.disciplinas)||[]).map(x=>({id:x.id||uid(),nome:x.nome||"Sem nome",peso:Number(x.peso)||1,nivel:Number(x.nivel)||3,assuntos:[]}));
+  d.sessoes=(ses||[]).map(s=>({id:s.id||uid(),data:s.data,disc:s.disc,assunto:"",tipo:s.tipo||"teoria",min:Number(s.min)||0,questoes:Number(s.questoes)||0,acertos:Number(s.acertos)||0,origem:""}));
+  return d;
+}
+function completar(d){const v=VAZIO();for(const k in v)if(d[k]===undefined)d[k]=v[k];d.edital={...v.edital,...d.edital};d.disciplinas.forEach(x=>{if(!Array.isArray(x.assuntos))x.assuntos=[]});return d}
+function carregar(){
+  const f=LS("fa_dados");
+  if(f&&Array.isArray(f.disciplinas)){D=completar(f);return}
+  const c=LS("ce_cfg"),s=LS("ce_ses");
+  if(c&&Array.isArray(c.disciplinas)&&(c.disciplinas.length||(s&&s.length))){D=migrarCalango(c,s);salvar();toast("Seus dados do Método Calango foram trazidos para o Farol.");return}
+  D=gerarExemplo();exemplo=true;
+}
+function salvar(){if(exemplo)return;const ok=LS("fa_dados",D);if(ok===null)$("storeStatus").textContent="Não foi possível salvar neste aparelho (armazenamento bloqueado)."}
+function sairDoExemplo(manterDisc){
+  if(!exemplo)return;
+  const discs=manterDisc?D.disciplinas.map(d=>({...d,assuntos:d.assuntos.map(a=>({...a,status:"pendente"}))})):[];
+  const ed=manterDisc?{...D.edital,dataProva:""}:VAZIO().edital;
+  D=VAZIO();D.disciplinas=discs;D.edital=ed;exemplo=false;salvar();render();
+}
+function garantirReal(){if(exemplo)sairDoExemplo(true)}
+
+/* ---------- exemplo ---------- */
+function gerarExemplo(){
+  const d=VAZIO();const H=hoje();
+  d.edital={concurso:"SEFAZ – Auditor Fiscal (exemplo)",banca:"FCC",dataProva:addDias(H,96),notaCorte:72};
+  const mk=(nome,peso,nivel,ass)=>({id:uid(),nome,peso,nivel,assuntos:ass.map(n=>({id:uid(),nome:n,status:"pendente"}))});
+  d.disciplinas=[
+    mk("Língua Portuguesa",3,3,["Interpretação de textos","Crase","Concordância","Regência","Pontuação"]),
+    mk("Raciocínio Lógico",2,4,["Proposições","Porcentagem","Análise combinatória"]),
+    mk("Direito Constitucional",2,2,["Direitos fundamentais","Organização do Estado","Sistema tributário nacional"]),
+    mk("Direito Tributário",4,3,["Competência tributária","Obrigação e crédito","Lançamento","Suspensão e extinção"]),
+    mk("Contabilidade Geral",3,1,["Balanço patrimonial","DRE","Estoques"]),
+    mk("Legislação do ICMS",4,2,["Fato gerador","Base de cálculo","Substituição tributária","Diferimento"])];
+  const D_=i=>d.disciplinas[i], A_=(i,j)=>D_(i).assuntos[j];
+  const s=(off,i,j,tipo,min,q,a)=>{const dt=addDias(H,-off);d.sessoes.push({id:uid(),data:dt,disc:D_(i).id,assunto:j==null?"":A_(i,j).id,tipo,min,questoes:q,acertos:a,origem:""});
+    if(j!=null&&A_(i,j).status==="pendente"&&tipo==="teoria")A_(i,j).status="estudado";
+    if(tipo==="teoria"&&j!=null)ETAPAS.forEach(e=>d.revisoes.push({id:uid(),disc:D_(i).id,assunto:A_(i,j).id,origem:dt,etapa:e,data:addDias(dt,e),feita:addDias(dt,e)<addDias(H,-1)}))};
+  for(let w=5;w>=1;w--){s(w*7+2,3,w%4,"teoria",80,0,0);s(w*7+1,0,w%5,"exercicio",50,30,15+w);s(w*7,5,w%4,"exercicio",50,25,10+w*2)}
+  s(9,4,0,"teoria",70,0,0);s(8,3,2,"exercicio",50,30,15);s(7,5,2,"teoria",90,0,0);s(6,1,1,"exercicio",40,20,17);s(5,0,0,"exercicio",45,30,24);
+  s(3,5,2,"exercicio",50,25,13);s(2,2,0,"teoria",60,0,0);s(1,3,1,"teoria",80,0,0);s(1,4,0,"exercicio",40,20,9);s(0,0,1,"revisao",25,0,0);
+  d.cadernos=[{id:uid(),nome:"ICMS – Substituição tributária",fonte:"Método Camocim",link:"",disc:D_(5).id,assunto:A_(5,2).id,qtd:40,feitas:25,acertos:13,criado:addDias(H,-4)},
+              {id:uid(),nome:"Lançamento tributário – FCC",fonte:"TecConcursos",link:"",disc:D_(3).id,assunto:A_(3,2).id,qtd:30,feitas:0,acertos:0,criado:addDias(H,-1)}];
+  d.simulados=[{id:uid(),data:addDias(H,-30),nome:"Simulado 1",banca:"FCC",link:"",min:240,total:80,acertos:49,notaCorte:72,porDisc:[]},
+               {id:uid(),data:addDias(H,-16),nome:"Simulado 2",banca:"FCC",link:"",min:240,total:80,acertos:54,notaCorte:72,porDisc:[]},
+               {id:uid(),data:addDias(H,-3),nome:"Simulado 3",banca:"FCC",link:"",min:240,total:80,acertos:57,notaCorte:72,porDisc:[]}];
+  d.erros=[{id:uid(),data:addDias(H,-8),disc:D_(5).id,assunto:A_(5,2).id,motivo:"Confundi conceitos",texto:"MVA ajustada só se aplica em operação interestadual quando a alíquota interna é maior que a interestadual.",link:"",refazer:addDias(H,-1),resolvida:false,tentativas:1},
+           {id:uid(),data:addDias(H,-2),disc:D_(0).id,assunto:A_(0,1).id,motivo:"Pegadinha da banca",texto:"Não há crase antes de verbo, mesmo com 'a' antes.",link:"",refazer:addDias(H,5),resolvida:false,tentativas:1}];
+  return d;
 }
 
-/* ---------- Estado ---------- */
-let cfg={horasSemana:20,disciplinas:[]};
-let sessoes=[];
-let modoExemplo=false;
-let store=null; // {saveCfg, saveSessao, delSessao}
-let cfgCarregado=false, sesCarregadas=false;
+/* ================= consultas ================= */
+const disc=id=>D.disciplinas.find(d=>d.id===id);
+const nomeDisc=id=>(disc(id)||{nome:"(disciplina removida)"}).nome;
+const assunto=(dId,aId)=>{const d=disc(dId);return d&&d.assuntos.find(a=>a.id===aId)};
+const nomeAss=(dId,aId)=>{const a=assunto(dId,aId);return a?a.nome:""};
+function optsDisc(sel,val,vazio){sel.innerHTML=(vazio?`<option value="">${vazio}</option>`:"")+D.disciplinas.map(d=>`<option value="${d.id}">${esc(d.nome)}</option>`).join("");if(val&&D.disciplinas.find(d=>d.id===val))sel.value=val;else if(!vazio&&D.disciplinas[0])sel.value=D.disciplinas[0].id;else sel.value=""}
+function optsAss(sel,dId,val){const d=disc(dId);sel.innerHTML=`<option value="">(geral)</option>`+(d?d.assuntos.map(a=>`<option value="${a.id}">${esc(a.nome)}</option>`).join(""):"");sel.value=(d&&d.assuntos.find(a=>a.id===val))?val:""}
+function ligarDiscAss(dSel,aSel){dSel.addEventListener("change",()=>optsAss(aSel,dSel.value,""))}
 
-function LS(k,v){try{if(v===undefined){const r=localStorage.getItem(k);return r?JSON.parse(r):null}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
-
-function localStore(){
-  return {
-    saveCfg(){LS("ce_cfg",cfg)},
-    saveSessao(){LS("ce_ses",sessoes)},
-    delSessao(){LS("ce_ses",sessoes)},
-    load(){const c=LS("ce_cfg"),s=LS("ce_ses");if(c){cfg=c;sessoes=s||[]}else entrarExemplo();render()}
-  };
-}
-
-function entrarExemplo(){const e=exemplo();cfg=e.cfg;sessoes=e.sessoes;modoExemplo=true}
-function adotar(manterDisc){
-  if(!modoExemplo)return;
-  modoExemplo=false;
-  if(!manterDisc){cfg={horasSemana:cfg.horasSemana,disciplinas:[]}}
-  sessoes=[];
-  store.saveCfg();
-  if(store.limparSessoes)store.limparSessoes();else LS("ce_ses",[]);
-  render();
-}
-
-let cfgTimer=null;
-function salvarCfg(){
-  if(modoExemplo){adotar(true);return}
-  clearTimeout(cfgTimer);cfgTimer=setTimeout(()=>store.saveCfg(),500);
-}
-
-function initStore(){
-  store=localStore();store.load();
-  $("storeStatus").textContent="Dados salvos neste aparelho. Faça backups na aba Registro.";
-  try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
-}
-
-/* ---------- Cálculos ---------- */
 function plano(){
-  const ds=cfg.disciplinas;const tot=(Number(cfg.horasSemana)||0)*60;
+  const tot=(Number(D.horasSemana)||0)*60;
   const score=d=>Math.max(0,Number(d.peso)||0)*(6-(Number(d.nivel)||3));
-  const soma=ds.reduce((a,d)=>a+score(d),0)||1;
-  const m={};
-  ds.forEach(d=>{const min=tot*score(d)/soma;const sp=SPLIT[d.nivel]||SPLIT[3];m[d.id]={pct:score(d)/soma,min,teoria:min*sp[0]/100,exercicio:min*sp[1]/100,revisao:min*sp[2]/100}});
+  const soma=D.disciplinas.reduce((a,d)=>a+score(d),0)||1;const m={};
+  D.disciplinas.forEach(d=>{const min=tot*score(d)/soma,sp=SPLIT[d.nivel]||SPLIT[3];m[d.id]={pct:score(d)/soma,min,teoria:min*sp[0]/100,exercicio:min*sp[1]/100,revisao:min*sp[2]/100}});
   return m;
 }
 function stats(){
   const ini=isoDe(semanaInicio());const st={};
-  cfg.disciplinas.forEach(d=>st[d.id]={tot:0,sem:{teoria:0,exercicio:0,revisao:0},semTot:0,q:0,a:0,qSem:0,aSem:0,ultRev:null,ultTeoria:null,porTipo:{teoria:0,exercicio:0,revisao:0}});
-  sessoes.forEach(s=>{const x=st[s.disc];if(!x)return;const min=Number(s.min)||0;x.tot+=min;x.porTipo[s.tipo]=(x.porTipo[s.tipo]||0)+min;x.q+=Number(s.questoes)||0;x.a+=Number(s.acertos)||0;
-    if(s.data>=ini){x.sem[s.tipo]+=min;x.semTot+=min;x.qSem+=Number(s.questoes)||0;x.aSem+=Number(s.acertos)||0}
-    if(s.tipo==="revisao"&&(!x.ultRev||s.data>x.ultRev))x.ultRev=s.data;
-    if(s.tipo!=="revisao"&&(!x.ultTeoria||s.data>x.ultTeoria))x.ultTeoria=s.data;});
+  D.disciplinas.forEach(d=>st[d.id]={tot:0,sem:{teoria:0,exercicio:0,revisao:0},semTot:0,q:0,a:0,porTipo:{teoria:0,exercicio:0,revisao:0},ass:{},ult:null});
+  const addAss=(x,aId,q,a,min)=>{if(!aId)return;const r=x.ass[aId]||(x.ass[aId]={q:0,a:0,min:0});r.q+=q;r.a+=a;r.min+=min};
+  D.sessoes.forEach(s=>{const x=st[s.disc];if(!x)return;const min=+s.min||0,q=+s.questoes||0,a=+s.acertos||0;
+    x.tot+=min;x.porTipo[s.tipo]=(x.porTipo[s.tipo]||0)+min;x.q+=q;x.a+=a;addAss(x,s.assunto,q,a,min);
+    if(s.data>=ini){x.sem[s.tipo]+=min;x.semTot+=min}if(!x.ult||s.data>x.ult)x.ult=s.data});
+  D.simulados.forEach(m=>(m.porDisc||[]).forEach(p=>{const x=st[p.disc];if(x){x.q+=+p.q||0;x.a+=+p.a||0}}));
   return st;
 }
-const nomeDisc=id=>(cfg.disciplinas.find(d=>d.id===id)||{nome:"(disciplina removida)"}).nome;
+function semanas(n){
+  const out=[];const base=semanaInicio();
+  for(let i=n-1;i>=0;i--){const d=new Date(base);d.setDate(d.getDate()-7*i);const ini=isoDe(d),fim=addDias(ini,6);out.push({ini,fim,min:0,q:0,a:0})}
+  D.sessoes.forEach(s=>{const w=out.find(w=>s.data>=w.ini&&s.data<=w.fim);if(w){w.min+=+s.min||0;w.q+=+s.questoes||0;w.a+=+s.acertos||0}});
+  D.simulados.forEach(m=>{const w=out.find(w=>m.data>=w.ini&&m.data<=w.fim);if(w){w.q+=+m.total||0;w.a+=+m.acertos||0;w.min+=+m.min||0}});
+  return out;
+}
 function classe(q,a){if(q<10)return["none","poucas questões"];const p=a/q;return p<.6?["crit","crítico"]:p<.75?["warn","atenção"]:["ok","bom"]}
-const pctTxt=(q,a)=>q?Math.round(100*a/q)+"%":"—";
+const revPend=()=>D.revisoes.filter(r=>!r.feita&&disc(r.disc)).sort((a,b)=>a.data.localeCompare(b.data));
+const diasProva=()=>D.edital.dataProva?diasEntre(hoje(),D.edital.dataProva):null;
+function sequencia(){const dias=new Set(D.sessoes.map(s=>s.data));let d=hoje();if(!dias.has(d))d=addDias(d,-1);let n=0;while(dias.has(d)){n++;d=addDias(d,-1)}return n}
 
-/* ---------- Cronômetro ---------- */
-let cron=LS("ce_cron")||{disc:null,tipo:"teoria",inicio:null,acum:0};
+/* ================= ações de dados ================= */
+function novaSessao(o){
+  const min=Math.round(Number(o.min)),q=Math.round(Number(o.questoes)||0),a=Math.round(Number(o.acertos)||0);
+  if(!o.disc)return"Escolha a disciplina.";
+  if(!(min>0)&&!q)return"Informe os minutos estudados ou as questões feitas.";
+  if(q<0||a<0)return"Questões e acertos não podem ser negativos.";
+  if(a>q)return"Os acertos não podem passar do número de questões.";
+  garantirReal();
+  const s={id:uid(),data:o.data||hoje(),disc:o.disc,assunto:o.assunto||"",tipo:o.tipo||"teoria",min:Math.max(0,min||0),questoes:q,acertos:a,origem:o.origem||""};
+  D.sessoes.push(s);
+  if(o.agendar&&s.tipo==="teoria")agendar(s.disc,s.assunto,s.data);
+  if(s.tipo==="revisao"){const r=revPend().find(r=>r.disc===s.disc&&(r.assunto||"")===(s.assunto||"")&&r.data<=hoje());if(r){r.feita=true;r.feitaEm=s.data;subirStatus(r.disc,r.assunto,"revisado")}}
+  if(o.marcar&&s.assunto)subirStatus(s.disc,s.assunto,s.tipo==="revisao"?"revisado":"estudado");
+  salvar();render();return"";
+}
+function agendar(dId,aId,dataBase){
+  // evita duplicar o mesmo ciclo se já existe revisão pendente desse assunto
+  D.revisoes=D.revisoes.filter(r=>!(r.disc===dId&&(r.assunto||"")===(aId||"")&&!r.feita));
+  ETAPAS.forEach(e=>D.revisoes.push({id:uid(),disc:dId,assunto:aId||"",origem:dataBase,etapa:e,data:addDias(dataBase,e),feita:false}));
+}
+function subirStatus(dId,aId,st){const a=assunto(dId,aId);if(!a)return;const ord={pendente:0,estudado:1,revisado:2};if(ord[st]>ord[a.status||"pendente"])a.status=st}
+
+/* ================= cronômetro ================= */
+let cron=LS("fa_cron")||{disc:null,assunto:"",tipo:"teoria",inicio:null,acum:0};
 let wake=null;
 const elapsed=()=>cron.acum+(cron.inicio?Date.now()-cron.inicio:0);
-function saveCron(){LS("ce_cron",cron)}
-function fmtClock(ms){const s=Math.floor(ms/1000);return pad(Math.floor(s/3600))+":"+pad(Math.floor(s/60)%60)+":"+pad(s%60)}
-function tick(){
-  $("clock").textContent=fmtClock(elapsed());
-  $("clock").classList.toggle("run",!!cron.inicio);
-  $("btnStop").disabled=elapsed()<1000;
-  const p=plano()[cron.disc];const st=stats()[cron.disc];
-  if(p&&st){const meta=p[cron.tipo];const feito=st.sem[cron.tipo]+elapsed()/60000;
-    $("clockSub").textContent=TIPOS[cron.tipo].nome+": "+fmtH(feito)+" de "+fmtH(meta)+" previstos nesta semana";}
-  else $("clockSub").textContent=cfg.disciplinas.length?"":"Cadastre disciplinas no Plano semanal para começar.";
-}
-setInterval(()=>{if(cron.inicio)tick()},1000);
+const saveCron=()=>LS("fa_cron",cron);
+const fmtClock=ms=>{const s=Math.floor(ms/1000);return pad(Math.floor(s/3600))+":"+pad(Math.floor(s/60)%60)+":"+pad(s%60)};
 async function pedirWake(){try{if(navigator.wakeLock)wake=await navigator.wakeLock.request("screen")}catch(e){wake=null}}
 function soltarWake(){try{wake&&wake.release()}catch(e){}wake=null}
+function tick(){
+  $("clock").textContent=fmtClock(elapsed());$("clock").classList.toggle("run",!!cron.inicio);
+  $("btnStop").disabled=elapsed()<1000;
+  const p=plano()[cron.disc],st=stats()[cron.disc];
+  $("clockSub").textContent=p&&st?`${TIPOS[cron.tipo].nome}: ${fmtH(st.sem[cron.tipo]+elapsed()/60000)} de ${fmtH(p[cron.tipo])} previstos nesta semana`:(D.disciplinas.length?"":"Cadastre disciplinas na aba Edital para começar.");
+}
+setInterval(()=>{if(cron.inicio)tick()},1000);
+function irEstudar(dId,aId,tipo){if(cron.inicio){toast("Há um cronômetro rodando. Conclua ou pause antes.");location.hash="estudar";return}cron.disc=dId;cron.assunto=aId||"";cron.tipo=tipo||"teoria";saveCron();location.hash="estudar";renderEstudar()}
 $("btnStart").onclick=()=>{
   if(!cron.disc){toast("Escolha uma disciplina.");return}
-  if(cron.inicio){cron.acum+=Date.now()-cron.inicio;cron.inicio=null;soltarWake()}
-  else{cron.inicio=Date.now();pedirWake();$("saveBox").hidden=true}
-  saveCron();renderCron();
+  if(cron.inicio){cron.acum+=Date.now()-cron.inicio;cron.inicio=null;soltarWake()}else{cron.inicio=Date.now();pedirWake();$("saveBox").hidden=true}
+  saveCron();renderEstudar();
 };
 $("btnStop").onclick=()=>{
   if(cron.inicio){cron.acum+=Date.now()-cron.inicio;cron.inicio=null;soltarWake();saveCron()}
-  const min=Math.round(elapsed()/60000);
-  $("sMin").value=Math.max(1,min);$("sQ").value=0;$("sA").value=0;$("saveErr").textContent="";
-  $("saveBox").hidden=false;renderCron();$("sMin").focus();
+  $("sMin").value=Math.max(1,Math.round(elapsed()/60000));$("sQ").value=0;$("sA").value=0;$("saveErr").textContent="";
+  $("sRevWrap").hidden=cron.tipo!=="teoria";$("sRev").checked=true;$("sMarca").checked=!!cron.assunto;
+  $("saveBox").hidden=false;renderEstudar();$("sMin").focus();
 };
-$("btnReset").onclick=()=>{cron.inicio=null;cron.acum=0;soltarWake();saveCron();$("saveBox").hidden=true;renderCron()};
+$("btnReset").onclick=e=>armar(e.target,"Confirmar",()=>{cron.inicio=null;cron.acum=0;soltarWake();saveCron();$("saveBox").hidden=true;renderEstudar()});
 $("btnCancelSave").onclick=()=>{$("saveBox").hidden=true};
 $("btnSave").onclick=()=>{
-  const r=novaSessao(hoje(),cron.disc,cron.tipo,$("sMin").value,$("sQ").value,$("sA").value);
+  const r=novaSessao({disc:cron.disc,assunto:cron.assunto,tipo:cron.tipo,min:$("sMin").value,questoes:$("sQ").value,acertos:$("sA").value,agendar:$("sRev").checked,marcar:$("sMarca").checked});
   if(r){$("saveErr").textContent=r;return}
-  cron.inicio=null;cron.acum=0;saveCron();$("saveBox").hidden=true;toast("Sessão salva.");
+  cron.inicio=null;cron.acum=0;saveCron();$("saveBox").hidden=true;toast(cron.tipo==="teoria"&&$("sRev").checked?"Sessão salva e revisões agendadas.":"Sessão salva.");renderEstudar();
 };
-$("cDisc").onchange=e=>{cron.disc=e.target.value;saveCron();renderCron()};
+$("cDisc").onchange=e=>{cron.disc=e.target.value;cron.assunto="";saveCron();renderEstudar()};
+$("cAss").onchange=e=>{cron.assunto=e.target.value;saveCron()};
 
-function novaSessao(data,disc,tipo,min,q,a){
-  min=Math.round(Number(min));q=Math.round(Number(q)||0);a=Math.round(Number(a)||0);
-  if(!disc)return"Escolha a disciplina.";
-  if(!(min>0))return"Informe os minutos estudados (maior que zero).";
-  if(q<0||a<0)return"Questões e acertos não podem ser negativos.";
-  if(a>q)return"Os acertos não podem passar do número de questões feitas.";
-  if(modoExemplo)adotar(true);
-  const s={id:uid(),data,disc,tipo,min,questoes:q,acertos:a};
-  sessoes.push(s);store.saveSessao(s);render();return"";
-}
-
-function renderCron(){
-  const sel=$("cDisc");
-  sel.innerHTML=cfg.disciplinas.length?cfg.disciplinas.map(d=>`<option value="${d.id}">${esc(d.nome)}</option>`).join(""):`<option value="">Nenhuma disciplina</option>`;
-  if(!cfg.disciplinas.find(d=>d.id===cron.disc))cron.disc=cfg.disciplinas[0]?cfg.disciplinas[0].id:null;
-  sel.value=cron.disc||"";sel.disabled=!!cron.inicio;
-  const p=plano()[cron.disc];const st=stats()[cron.disc];
+function renderEstudar(){
+  if(!disc(cron.disc))cron.disc=D.disciplinas[0]?D.disciplinas[0].id:null;
+  optsDisc($("cDisc"),cron.disc);optsAss($("cAss"),cron.disc,cron.assunto);
+  $("cDisc").disabled=$("cAss").disabled=!!cron.inicio;
+  const p=plano()[cron.disc],st=stats()[cron.disc];
   $("cTipos").innerHTML=Object.entries(TIPOS).map(([k,t])=>`<button type="button" style="--tc:${t.cor}" data-tipo="${k}" aria-pressed="${cron.tipo===k}" ${cron.inicio?"disabled":""}>${t.nome}<small>${p?fmtH(st.sem[k])+" / "+fmtH(p[k]):"—"}</small></button>`).join("");
-  $("cTipos").querySelectorAll("button").forEach(b=>b.onclick=()=>{cron.tipo=b.dataset.tipo;saveCron();renderCron()});
+  $("cTipos").querySelectorAll("button").forEach(b=>b.onclick=()=>{cron.tipo=b.dataset.tipo;saveCron();renderEstudar()});
   $("btnStart").textContent=cron.inicio?"Pausar":(cron.acum?"Continuar":"Iniciar");
-  $("btnStop").disabled=elapsed()<1000;
-  // meta
-  if(p&&st){
-    const d=cfg.disciplinas.find(x=>x.id===cron.disc);
-    const pc=Math.min(100,p.min?100*st.semTot/p.min:0);
-    $("cMeta").innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b>${esc(d.nome)}</b><span class="small muted">peso ${esc(d.peso)} · nível ${esc(NIVEIS[d.nivel]||"")}</span></div>
-      <div class="progress" style="margin:8px 0 6px"><i style="width:${pc}%"></i></div>
-      <div class="small" style="font-family:var(--mono)">${fmtH(st.semTot)} de ${fmtH(p.min)} na semana · faltam ${fmtH(Math.max(0,p.min-st.semTot))}</div>
-      <div class="small muted" style="margin-top:6px">Acerto geral: ${pctTxt(st.q,st.a)} em ${st.q} questões.</div>`;
-  }else $("cMeta").innerHTML=`<div class="empty">Cadastre disciplinas no Plano semanal.</div>`;
-  const ult=sessoes.filter(s=>s.disc===cron.disc).sort((a,b)=>b.data.localeCompare(a.data)).slice(0,5);
-  $("cUltimas").innerHTML=ult.length?`<div class="tbl"><table><thead><tr><th>Data</th><th>Tipo</th><th class="n">Tempo</th><th class="n">Acerto</th></tr></thead><tbody>${ult.map(s=>`<tr><td>${fmtData(s.data)}</td><td><i class="dot" style="background:${TIPOS[s.tipo].cor}"></i>${TIPOS[s.tipo].nome}</td><td class="n">${fmtH(s.min)}</td><td class="n">${s.questoes?s.acertos+"/"+s.questoes:"—"}</td></tr>`).join("")}</tbody></table></div>`:`<p class="small muted" style="margin:0">Nenhuma sessão desta disciplina ainda.</p>`;
+  const d=disc(cron.disc);
+  if(p&&st&&d){const pc=Math.min(100,p.min?100*st.semTot/p.min:0);
+    $("cMeta").innerHTML=`<div class="sheet-head"><b>${esc(d.nome)}</b><span class="small muted">peso ${esc(d.peso)} · ${esc(NIVEIS[d.nivel]||"")}</span></div>
+      <div class="meter"><div class="bar"><i style="width:${pc}%"></i></div><span class="small mono">${fmtH(st.semTot)} de ${fmtH(p.min)} · faltam ${fmtH(Math.max(0,p.min-st.semTot))}</span></div>
+      <span class="small muted">Acerto geral: ${pctTxt(st.q,st.a)} em ${st.q} questões.</span>`}
+  else $("cMeta").innerHTML=`<div class="empty">Cadastre disciplinas na aba Edital.</div>`;
+  const rv=revPend().filter(r=>r.disc===cron.disc).slice(0,4);
+  $("cRev").innerHTML=rv.length?`<ul class="list">${rv.map(r=>`<li class="item ${r.data<hoje()?"crit":r.data===hoje()?"gold":"info"}"><div><div class="t">${esc(nomeAss(r.disc,r.assunto)||"Revisão geral")}</div><div class="s">${r.etapa}º dia · ${r.data<=hoje()?(r.data<hoje()?"atrasada desde "+fmtData(r.data):"hoje"):"em "+fmtData(r.data)}</div></div><div class="acts"><button class="sm" data-revgo="${r.id}">Revisar agora</button></div></li>`).join("")}</ul>`:`<p class="small muted">Nenhuma revisão pendente.</p>`;
+  $("cRev").querySelectorAll("[data-revgo]").forEach(b=>b.onclick=()=>{const r=D.revisoes.find(x=>x.id===b.dataset.revgo);irEstudar(r.disc,r.assunto,"revisao")});
+  const ult=D.sessoes.filter(s=>s.disc===cron.disc).sort((a,b)=>b.data.localeCompare(a.data)).slice(0,5);
+  $("cUltimas").innerHTML=ult.length?`<div class="tbl"><table><thead><tr><th>Data</th><th>Tipo</th><th>Assunto</th><th class="n">Tempo</th><th class="n">Acerto</th></tr></thead><tbody>${ult.map(s=>`<tr><td>${fmtData(s.data)}</td><td><i class="dot" style="background:${TIPOS[s.tipo].cor}"></i>${TIPOS[s.tipo].nome}</td><td>${esc(nomeAss(s.disc,s.assunto)||"—")}</td><td class="n">${fmtH(s.min)}</td><td class="n">${s.questoes?s.acertos+"/"+s.questoes:"—"}</td></tr>`).join("")}</tbody></table></div>`:`<p class="small muted">Nenhuma sessão desta disciplina ainda.</p>`;
   tick();
 }
 
-/* ---------- Plano ---------- */
-function renderPlano(){
-  if(document.activeElement!==$("hSemana"))$("hSemana").value=cfg.horasSemana;
-  const p=plano();
-  const rows=cfg.disciplinas.map((d,i)=>{const x=p[d.id];return`<tr>
-    <td><input class="nome" id="n_${d.id}" data-i="${i}" data-f="nome" value="${esc(d.nome)}" aria-label="Nome da disciplina"></td>
-    <td><input class="peso" id="p_${d.id}" type="number" min="0" step="1" data-i="${i}" data-f="peso" value="${esc(d.peso)}" aria-label="Peso"></td>
-    <td><select id="l_${d.id}" data-i="${i}" data-f="nivel" aria-label="Nível de conhecimento">${[1,2,3,4,5].map(n=>`<option value="${n}" ${d.nivel==n?"selected":""}>${NIVEIS[n]}</option>`).join("")}</select></td>
-    <td class="n">${Math.round(x.pct*100)}%</td>
-    <td class="n"><b>${fmtH(x.min)}</b></td>
-    <td class="n" style="color:var(--teoria)">${fmtH(x.teoria)}</td>
-    <td class="n" style="color:var(--exerc)">${fmtH(x.exercicio)}</td>
-    <td class="n" style="color:var(--rev)">${fmtH(x.revisao)}</td>
-    <td><button class="icon ghost" data-del="${i}" aria-label="Remover ${esc(d.nome)}">Remover</button></td></tr>`}).join("");
-  const tot=Object.values(p).reduce((a,x)=>({min:a.min+x.min,t:a.t+x.teoria,e:a.e+x.exercicio,r:a.r+x.revisao}),{min:0,t:0,e:0,r:0});
-  $("planoTbl").innerHTML=`<thead><tr><th>Disciplina</th><th>Peso</th><th>Nível de conhecimento</th><th class="n">Prioridade</th><th class="n">Horas/sem.</th><th class="n">Teoria</th><th class="n">Exercícios</th><th class="n">Revisão</th><th></th></tr></thead>
-   <tbody>${rows||`<tr><td colspan="9" class="muted">Nenhuma disciplina. Use "Adicionar disciplina".</td></tr>`}</tbody>
-   <tfoot><tr><td colspan="4">Total</td><td class="n">${fmtH(tot.min)}</td><td class="n">${fmtH(tot.t)}</td><td class="n">${fmtH(tot.e)}</td><td class="n">${fmtH(tot.r)}</td><td></td></tr></tfoot>`;
-  $("planoTbl").querySelectorAll("[data-f]").forEach(el=>el.onchange=()=>{
-    const d=cfg.disciplinas[+el.dataset.i];const f=el.dataset.f;
-    d[f]=f==="nome"?(el.value.trim()||"Sem nome"):Math.max(f==="nivel"?1:0,Number(el.value)||0);
-    salvarCfg();render();
-  });
-  $("planoTbl").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
-    const i=+b.dataset.del;
-    if(b.dataset.arm){cfg.disciplinas.splice(i,1);salvarCfg();render()}
-    else{b.dataset.arm="1";b.textContent="Confirmar";b.classList.add("danger");setTimeout(()=>{if(b.isConnected){delete b.dataset.arm;b.textContent="Remover";b.classList.remove("danger")}},4000)}
-  });
-  $("splitTbl").innerHTML=`<thead><tr><th>Nível</th><th class="n">Teoria</th><th class="n">Exercícios</th><th class="n">Revisão</th></tr></thead><tbody>${[1,2,3,4,5].map(n=>`<tr><td>${NIVEIS[n]}</td><td class="n">${SPLIT[n][0]}%</td><td class="n">${SPLIT[n][1]}%</td><td class="n">${SPLIT[n][2]}%</td></tr>`).join("")}</tbody>`;
+/* ================= HOJE ================= */
+function renderHoje(){
+  const dp=diasProva(),ed=D.edital;
+  const hojeMin=D.sessoes.filter(s=>s.data===hoje()).reduce((a,s)=>a+(+s.min||0),0);
+  const metaDia=(Number(D.horasSemana)||0)*60/7;
+  const seq=sequencia();
+  $("hero").innerHTML=dp!==null&&dp>=0?`
+    <div class="big">${dp}<small>${dp===1?"dia":"dias"}</small></div>
+    <div style="display:flex;flex-direction:column;gap:6px;position:relative;z-index:1">
+      <h2>${esc(ed.concurso||"Sua prova")}</h2>
+      <p>${dp===0?"A prova é hoje. Boa prova!":"para a prova em "+fmtData(ed.dataProva)}${ed.banca?" · banca "+esc(ed.banca):""} · ${Math.max(0,Math.floor(dp/7))} semanas de estudo</p>
+      <p>${seq?`Você estudou ${seq} ${seq===1?"dia":"dias"} seguidos.`:"Comece hoje uma sequência de estudos."}</p>
+    </div>`:`
+    <div class="big">—</div>
+    <div style="display:flex;flex-direction:column;gap:8px;position:relative;z-index:1">
+      <h2>${dp!==null&&dp<0?"A prova já passou":"Cadastre a data da prova"}</h2>
+      <p>Com o concurso e a data no Edital, o Farol mostra a contagem regressiva e ajusta o que estudar.</p>
+      <div><a class="btn sm" href="#edital">Abrir Edital</a></div>
+    </div>`;
+  $("hojeMeta").textContent=`${fmtH(hojeMin)} de ${fmtH(metaDia)}`;
+  $("hojeBar").style.width=Math.min(100,metaDia?100*hojeMin/metaDia:0)+"%";
+  $("hojeBar").className=hojeMin>=metaDia&&metaDia?"gold":"";
+  // sugestões
+  const p=plano(),st=stats();const dow=(new Date().getDay()+6)%7;const restam=7-dow;
+  const sug=D.disciplinas.map(d=>{const m=p[d.id],x=st[d.id];const falta=Math.max(0,m.min-x.semTot);
+      const tipo=["teoria","exercicio","revisao"].map(k=>[k,m[k]-x.sem[k]]).sort((a,b)=>b[1]-a[1])[0][0];
+      const prox=d.assuntos.find(a=>a.status==="pendente");
+      return{d,falta,hojeMin:Math.max(25,Math.round(falta/restam/5)*5),tipo,prox}}).filter(s=>s.falta>5).sort((a,b)=>b.falta-a.falta).slice(0,4);
+  $("hojeSug").innerHTML=!D.disciplinas.length?`<li class="empty">Cadastre suas disciplinas na aba <a href="#edital">Edital</a>.</li>`:
+    sug.length?sug.map(s=>`<li class="item info"><div><div class="t">${esc(s.d.nome)}</div><div class="s">${TIPOS[s.tipo].nome} · cerca de ${fmtH(s.hojeMin)} hoje${s.prox&&s.tipo==="teoria"?" · próximo assunto: "+esc(s.prox.nome):""}</div></div><div class="acts"><button class="sm primary" data-go="${s.d.id}" data-tipo="${s.tipo}" data-ass="${s.tipo==="teoria"&&s.prox?s.prox.id:""}">Estudar</button></div></li>`).join("")
+    :`<li class="item ok"><div><div class="t">Meta da semana cumprida</div><div class="s">Aproveite para revisar ou fazer questões.</div></div></li>`;
+  $("hojeSug").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>irEstudar(b.dataset.go,b.dataset.ass,b.dataset.tipo));
+  // revisões
+  const rv=revPend().filter(r=>r.data<=hoje());
+  $("revCount").textContent=rv.length?rv.length+(rv.length===1?" pendente":" pendentes"):"em dia";
+  $("hojeRev").innerHTML=rv.length?rv.slice(0,6).map(r=>`<li class="item ${r.data<hoje()?"crit":"gold"}"><div><div class="t">${esc(nomeDisc(r.disc))}${r.assunto?" · "+esc(nomeAss(r.disc,r.assunto)):""}</div><div class="s">Revisão de ${r.etapa} ${r.etapa===1?"dia":"dias"} · estudado em ${fmtData(r.origem)}${r.data<hoje()?" · atrasada "+diasEntre(r.data,hoje())+"d":""}</div></div><div class="acts"><button class="sm primary" data-rgo="${r.id}">Revisar</button><button class="sm" data-rok="${r.id}" title="Marcar como feita sem cronometrar">Feita</button></div></li>`).join("")+(rv.length>6?`<li class="small muted">e mais ${rv.length-6}.</li>`:"")
+    :`<li class="item ok"><div><div class="t">Nenhuma revisão para hoje</div><div class="s">${revPend()[0]?"Próxima em "+fmtData(revPend()[0].data):"Estude um assunto novo e as revisões serão agendadas sozinhas."}</div></div></li>`;
+  $("hojeRev").querySelectorAll("[data-rgo]").forEach(b=>b.onclick=()=>{const r=D.revisoes.find(x=>x.id===b.dataset.rgo);irEstudar(r.disc,r.assunto,"revisao")});
+  $("hojeRev").querySelectorAll("[data-rok]").forEach(b=>b.onclick=()=>{garantirReal();const r=D.revisoes.find(x=>x.id===b.dataset.rok);if(r){r.feita=true;r.feitaEm=hoje();subirStatus(r.disc,r.assunto,"revisado");salvar();render();toast("Revisão marcada como feita.")}});
+  // cadernos em andamento
+  const cads=D.cadernos.filter(c=>!c.qtd||c.feitas<c.qtd).slice(0,3);
+  $("hojeCad").innerHTML=cads.length?cads.map(c=>`<li class="item info"><div><div class="t">${esc(c.nome)}</div><div class="s">${esc(c.fonte)} · ${c.feitas}${c.qtd?"/"+c.qtd:""} feitas${c.feitas?" · "+pctTxt(c.feitas,c.acertos)+" de acerto":""}</div></div><div class="acts">${safeUrl(c.link)?`<a class="btn sm" href="${esc(safeUrl(c.link))}" target="_blank" rel="noopener">Abrir</a>`:""}</div></li>`).join(""):`<li class="small muted">Nenhum caderno em andamento. Linke um na aba <a href="#questoes">Questões</a>.</li>`;
+  const er=D.erros.filter(e=>!e.resolvida);const erHoje=er.filter(e=>e.refazer<=hoje());
+  $("hojeErr").innerHTML=er.length?`<li class="item ${erHoje.length?"warn":"info"}"><div><div class="t">${erHoje.length} ${erHoje.length===1?"questão para refazer hoje":"questões para refazer hoje"}</div><div class="s">${er.length} pendentes no total${er[0]?" · mais frequente: "+esc(motivoTop()):""}</div></div></li>`+erHoje.slice(0,3).map(e=>`<li class="item gold"><div><div class="t">${esc(nomeDisc(e.disc))}${e.assunto?" · "+esc(nomeAss(e.disc,e.assunto)):""}</div><div class="s">${esc((e.texto||"").slice(0,110))}</div></div></li>`).join(""):`<li class="small muted">Nenhuma questão anotada. Quando errar, anote em Questões → Caderno de erros.</li>`;
 }
-$("hSemana").onchange=e=>{cfg.horasSemana=Math.max(0,Number(e.target.value)||0);salvarCfg();render()};
-$("btnAddDisc").onclick=()=>{cfg.disciplinas.push({id:uid(),nome:"Nova disciplina",peso:1,nivel:3});salvarCfg();render();const last=cfg.disciplinas[cfg.disciplinas.length-1];const el=$("n_"+last.id);if(el){el.focus();el.select()}};
+function motivoTop(){const c={};D.erros.filter(e=>!e.resolvida).forEach(e=>c[e.motivo]=(c[e.motivo]||0)+1);return Object.entries(c).sort((a,b)=>b[1]-a[1])[0]?.[0]||""}
 
-/* ---------- Registro ---------- */
+/* ================= QUESTÕES ================= */
+let subQ="cadernos",filtroErr="pend",abrirLanc=null;
+function setSub(s){subQ=s;$("qSeg").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.sub===s));["cadernos","simulados","erros"].forEach(k=>$("sub-"+k).hidden=k!==s);try{sessionStorage.setItem("fa_sub",s)}catch(e){}}
+$("qSeg").querySelectorAll("button").forEach(b=>b.onclick=()=>setSub(b.dataset.sub));
+document.querySelectorAll('a[data-sub]').forEach(a=>a.addEventListener("click",()=>setSub(a.dataset.sub)));
+ligarDiscAss($("kDisc"),$("kAss"));ligarDiscAss($("eDisc"),$("eAss"));ligarDiscAss($("rDisc"),$("rAss"));
+$("btnAddCad").onclick=()=>{
+  const nome=$("kNome").value.trim(),link=$("kLink").value.trim();
+  if(!nome){$("kErr").textContent="Dê um nome ao caderno.";return}
+  if(link&&!safeUrl(link)){$("kErr").textContent="O link precisa começar com https://";return}
+  garantirReal();
+  D.cadernos.unshift({id:uid(),nome,fonte:$("kFonte").value,link,disc:$("kDisc").value,assunto:$("kAss").value,qtd:Math.max(0,Math.round(+$("kQtd").value||0)),feitas:0,acertos:0,criado:hoje()});
+  $("kErr").textContent="";$("kNome").value=$("kLink").value=$("kQtd").value="";salvar();render();toast("Caderno adicionado.");
+};
+function renderCadernos(){
+  optsDisc($("kDisc"),$("kDisc").value);optsAss($("kAss"),$("kDisc").value,$("kAss").value);
+  const L=$("cadList");
+  if(!D.cadernos.length){L.innerHTML=`<div class="empty" style="grid-column:1/-1">Nenhum caderno linkado ainda.</div>`;return}
+  L.innerHTML=D.cadernos.map(c=>{const pc=c.qtd?Math.min(100,100*c.feitas/c.qtd):0;const [cl,lb]=classe(c.feitas,c.acertos);const lk=safeUrl(c.link);
+    return`<div class="qcard"><div class="top-line"><div><div class="nm">${esc(c.nome)}</div><div class="small muted">${esc(nomeDisc(c.disc))}${c.assunto?" · "+esc(nomeAss(c.disc,c.assunto)):""}</div></div><span class="pill ${c.fonte==="Método Camocim"?"gold":"info"}">${esc(c.fonte)}</span></div>
+      <div class="meter"><div class="bar"><i style="width:${pc}%"></i></div><span class="small mono">${c.feitas}${c.qtd?" de "+c.qtd:""} feitas · ${pctTxt(c.feitas,c.acertos)} de acerto ${c.feitas?`<span class="pill ${cl}">${lb}</span>`:""}</span></div>
+      ${abrirLanc===c.id?`<div class="inline-form"><div class="row"><label>Feitas agora<input type="number" min="1" id="lq_${c.id}"></label><label>Acertos<input type="number" min="0" id="la_${c.id}"></label><label>Minutos<input type="number" min="0" id="lm_${c.id}"></label></div><label class="check"><input type="checkbox" id="le_${c.id}"> Anotar as erradas no caderno de erros depois</label><div class="row"><button class="sm primary" data-lok="${c.id}">Salvar resultado</button><button class="sm ghost" data-lx>Cancelar</button></div><div class="small" id="lerr_${c.id}" style="color:var(--crit)"></div></div>`:""}
+      <div class="acts">${lk?`<a class="btn sm primary" href="${esc(lk)}" target="_blank" rel="noopener">Abrir questões</a>`:""}<button class="sm" data-lanc="${c.id}">Lançar resultado</button><button class="sm ghost" data-cdel="${c.id}">Excluir</button></div></div>`}).join("");
+  L.querySelectorAll("[data-lanc]").forEach(b=>b.onclick=()=>{abrirLanc=b.dataset.lanc;renderCadernos();const i=$("lq_"+abrirLanc);i&&i.focus()});
+  L.querySelectorAll("[data-lx]").forEach(b=>b.onclick=()=>{abrirLanc=null;renderCadernos()});
+  L.querySelectorAll("[data-lok]").forEach(b=>b.onclick=()=>{const id=b.dataset.lok,c=D.cadernos.find(x=>x.id===id);
+    if(exemplo){$("lerr_"+id).textContent="Este é um caderno de exemplo. Use “Começar do zero” no aviso do topo e linke os seus.";return}const q=+$("lq_"+id).value||0,a=+$("la_"+id).value||0,m=+$("lm_"+id).value||0;
+    if(q<=0||a<0||a>q){$("lerr_"+id).textContent="Confira as questões feitas e os acertos.";return}
+    if(!c.disc){$("lerr_"+id).textContent="Este caderno não tem disciplina. Exclua e cadastre de novo com a disciplina.";return}
+    const r=novaSessao({disc:c.disc,assunto:c.assunto,tipo:"exercicio",min:m,questoes:q,acertos:a,origem:c.fonte});if(r){$("lerr_"+id).textContent=r;return}
+    const cc=D.cadernos.find(x=>x.id===id);cc.feitas+=q;cc.acertos+=a;const irErros=$("le_"+id)&&$("le_"+id).checked;abrirLanc=null;salvar();render();toast("Resultado lançado.");
+    if(irErros){setSub("erros");$("eDisc").value=cc.disc;optsAss($("eAss"),cc.disc,cc.assunto);$("eTxt").focus()}});
+  L.querySelectorAll("[data-cdel]").forEach(b=>b.onclick=()=>armar(b,"Confirmar",()=>{garantirReal();D.cadernos=D.cadernos.filter(c=>c.id!==b.dataset.cdel);salvar();render()}));
+}
+/* simulados */
+function renderSimForm(){
+  if(!$("mData").value)$("mData").value=hoje();
+  if(document.activeElement!==$("mCorte")&&!$("mCorte").value)$("mCorte").value=D.edital.notaCorte||"";
+  const cur={};$("mTbl").querySelectorAll("input").forEach(i=>cur[i.id]=i.value);
+  $("mTbl").innerHTML=`<thead><tr><th>Disciplina</th><th class="n">Questões</th><th class="n">Acertos</th></tr></thead><tbody>${D.disciplinas.map(d=>`<tr><td>${esc(d.nome)}</td><td class="n"><input type="number" min="0" id="mq_${d.id}" value="${esc(cur["mq_"+d.id]||"")}" style="width:84px"></td><td class="n"><input type="number" min="0" id="ma_${d.id}" value="${esc(cur["ma_"+d.id]||"")}" style="width:84px"></td></tr>`).join("")}</tbody>`;
+  $("mTbl").querySelectorAll("input").forEach(i=>i.oninput=()=>{let q=0,a=0;D.disciplinas.forEach(d=>{q+=+$("mq_"+d.id).value||0;a+=+$("ma_"+d.id).value||0});if(q){$("mQ").value=q;$("mA").value=a}});
+}
+$("btnAddSim").onclick=()=>{
+  const total=Math.round(+$("mQ").value||0),ac=Math.round(+$("mA").value||0);
+  if(total<=0){$("mErr").textContent="Informe o total de questões.";return}
+  if(ac<0||ac>total){$("mErr").textContent="Os acertos precisam ficar entre 0 e o total.";return}
+  const link=$("mLink").value.trim();if(link&&!safeUrl(link)){$("mErr").textContent="O link precisa começar com https://";return}
+  const porDisc=D.disciplinas.map(d=>({disc:d.id,q:+$("mq_"+d.id).value||0,a:+$("ma_"+d.id).value||0})).filter(p=>p.q>0);
+  if(porDisc.some(p=>p.a>p.q)){$("mErr").textContent="Em alguma disciplina os acertos passam das questões.";return}
+  garantirReal();
+  D.simulados.push({id:uid(),data:$("mData").value||hoje(),nome:$("mNome").value.trim()||"Simulado",banca:$("mBanca").value.trim(),link,min:Math.round(+$("mMin").value||0),total,acertos:ac,notaCorte:+$("mCorte").value||0,porDisc});
+  ["mNome","mLink","mMin","mQ","mA"].forEach(k=>$(k).value="");$("mTbl").querySelectorAll("input").forEach(i=>i.value="");$("mErr").textContent="";
+  salvar();render();toast("Simulado salvo.");
+};
+function renderSimulados(){
+  renderSimForm();
+  const ss=[...D.simulados].sort((a,b)=>a.data.localeCompare(b.data));
+  $("simChart").innerHTML=ss.length?lineChart(ss.map(s=>({rot:fmtData(s.data).slice(0,5),v:100*s.acertos/s.total,c:s.notaCorte||null}))):`<div class="empty">Registre um simulado para ver sua nota contra a nota de corte.</div>`;
+  $("simList").innerHTML=ss.length?`<div class="tbl"><table><thead><tr><th>Data</th><th>Simulado</th><th class="n">Acertos</th><th class="n">Nota</th><th class="n">Corte</th><th>Situação</th><th></th></tr></thead><tbody>${[...ss].reverse().map(s=>{const n=100*s.acertos/s.total,dif=s.notaCorte?n-s.notaCorte:null;const lk=safeUrl(s.link);
+    return`<tr><td>${fmtData(s.data)}</td><td>${lk?`<a href="${esc(lk)}" target="_blank" rel="noopener">${esc(s.nome)}</a>`:esc(s.nome)}${s.banca?` <span class="small muted">${esc(s.banca)}</span>`:""}</td><td class="n">${s.acertos}/${s.total}</td><td class="n"><b>${n.toFixed(1)}%</b></td><td class="n">${s.notaCorte?s.notaCorte+"%":"—"}</td><td>${dif===null?"—":`<span class="pill ${dif>=0?"ok":dif>-5?"warn":"crit"}">${dif>=0?"acima":"abaixo"} ${Math.abs(dif).toFixed(1)} p.p.</span>`}</td><td><button class="sm ghost" data-sdel="${s.id}">Excluir</button></td></tr>`}).join("")}</tbody></table></div>`:"";
+  $("simList").querySelectorAll("[data-sdel]").forEach(b=>b.onclick=()=>armar(b,"Confirmar",()=>{garantirReal();D.simulados=D.simulados.filter(s=>s.id!==b.dataset.sdel);salvar();render()}));
+}
+/* erros */
+$("btnAddErr").onclick=()=>{
+  const txt=$("eTxt").value.trim(),link=$("eLink").value.trim();
+  if(!$("eDisc").value){$("eErr").textContent="Escolha a disciplina.";return}
+  if(!txt&&!link){$("eErr").textContent="Escreva o que a questão cobrava ou cole o link dela.";return}
+  if(link&&!safeUrl(link)){$("eErr").textContent="O link precisa começar com https://";return}
+  garantirReal();
+  D.erros.unshift({id:uid(),data:hoje(),disc:$("eDisc").value,assunto:$("eAss").value,motivo:$("eMot").value,texto:txt,link,refazer:addDias(hoje(),+$("eQuando").value),resolvida:false,tentativas:1});
+  $("eTxt").value=$("eLink").value="";$("eErr").textContent="";salvar();render();toast("Questão anotada no caderno de erros.");
+};
+$("eSeg").querySelectorAll("button").forEach(b=>b.onclick=()=>{filtroErr=b.dataset.f;$("eSeg").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));renderErros()});
+function renderErros(){
+  optsDisc($("eDisc"),$("eDisc").value);optsAss($("eAss"),$("eDisc").value,$("eAss").value);
+  const pend=D.erros.filter(e=>!e.resolvida);const c={};pend.forEach(e=>c[e.motivo]=(c[e.motivo]||0)+1);
+  $("eMotivos").innerHTML=Object.entries(c).sort((a,b)=>b[1]-a[1]).map(([m,n])=>`<span class="pill none">${esc(m)}: ${n}</span>`).join("");
+  const lst=D.erros.filter(e=>filtroErr==="pend"?!e.resolvida:e.resolvida).sort((a,b)=>filtroErr==="pend"?a.refazer.localeCompare(b.refazer):b.data.localeCompare(a.data));
+  $("errList").innerHTML=lst.length?lst.map(e=>{const lk=safeUrl(e.link);const venc=!e.resolvida&&e.refazer<=hoje();
+    return`<li class="item ${e.resolvida?"ok":venc?"warn":"info"}"><div><div class="t">${esc(nomeDisc(e.disc))}${e.assunto?" · "+esc(nomeAss(e.disc,e.assunto)):""} <span class="pill none">${esc(e.motivo)}</span></div><div class="s" style="white-space:pre-wrap">${esc(e.texto)}</div><div class="s">${e.resolvida?"Resolvida":"Refazer "+(venc?"hoje":"em "+fmtData(e.refazer))} · anotada em ${fmtData(e.data)}${e.tentativas>1?" · "+e.tentativas+" tentativas":""}</div></div>
+    <div class="acts">${lk?`<a class="btn sm" href="${esc(lk)}" target="_blank" rel="noopener">Abrir</a>`:""}${e.resolvida?"":`<button class="sm primary" data-eok="${e.id}">Refiz e acertei</button><button class="sm" data-eno="${e.id}">Errei de novo</button>`}<button class="sm ghost" data-edel="${e.id}">Excluir</button></div></li>`}).join(""):`<li class="empty">${filtroErr==="pend"?"Nenhuma questão pendente.":"Nenhuma questão resolvida ainda."}</li>`;
+  const upd=(id,f)=>{garantirReal();const e=D.erros.find(x=>x.id===id);if(e){f(e);salvar();render()}};
+  $("errList").querySelectorAll("[data-eok]").forEach(b=>b.onclick=()=>upd(b.dataset.eok,e=>{e.resolvida=true;e.resolvidaEm=hoje();toast("Ótimo! Questão resolvida.")}));
+  $("errList").querySelectorAll("[data-eno]").forEach(b=>b.onclick=()=>upd(b.dataset.eno,e=>{e.tentativas=(e.tentativas||1)+1;e.refazer=addDias(hoje(),3);toast("Volta para refazer em 3 dias.")}));
+  $("errList").querySelectorAll("[data-edel]").forEach(b=>b.onclick=()=>armar(b,"Confirmar",()=>{garantirReal();D.erros=D.erros.filter(e=>e.id!==b.dataset.edel);salvar();render()}));
+}
+
+/* ================= EDITAL ================= */
+let assAberto=null;
+function renderEdital(){
+  const ed=D.edital;const set=(id,v)=>{if(document.activeElement!==$(id))$(id).value=v??""};
+  set("dConc",ed.concurso);set("dBanca",ed.banca);set("dData",ed.dataProva);set("dCorte",ed.notaCorte);set("dHoras",D.horasSemana);
+  const p=plano();
+  const rows=D.disciplinas.map((d,i)=>{const x=p[d.id];const nA=d.assuntos.length,nE=d.assuntos.filter(a=>a.status!=="pendente").length;return`<tr>
+    <td><input class="nome" id="n_${d.id}" data-i="${i}" data-f="nome" value="${esc(d.nome)}" aria-label="Nome da disciplina"></td>
+    <td><input class="peso" type="number" min="0" step="1" data-i="${i}" data-f="peso" value="${esc(d.peso)}" aria-label="Peso"></td>
+    <td><select data-i="${i}" data-f="nivel" aria-label="Nível de conhecimento">${[1,2,3,4,5].map(n=>`<option value="${n}" ${d.nivel==n?"selected":""}>${NIVEIS[n]}</option>`).join("")}</select></td>
+    <td><button class="sm ${assAberto===d.id?"primary":""}" data-ass="${d.id}">Assuntos ${nA?`<span class="mono">${nE}/${nA}</span>`:""}</button></td>
+    <td class="n">${Math.round(x.pct*100)}%</td><td class="n"><b>${fmtH(x.min)}</b></td>
+    <td class="n" style="color:var(--teoria)">${fmtH(x.teoria)}</td><td class="n" style="color:var(--exerc)">${fmtH(x.exercicio)}</td><td class="n" style="color:var(--rev)">${fmtH(x.revisao)}</td>
+    <td><button class="sm ghost" data-del="${i}">Remover</button></td></tr>`}).join("");
+  const tot=Object.values(p).reduce((a,x)=>({min:a.min+x.min,t:a.t+x.teoria,e:a.e+x.exercicio,r:a.r+x.revisao}),{min:0,t:0,e:0,r:0});
+  $("planoTbl").innerHTML=`<thead><tr><th>Disciplina</th><th>Peso</th><th>Nível de conhecimento</th><th>Edital</th><th class="n">Prioridade</th><th class="n">Horas/sem.</th><th class="n">Teoria</th><th class="n">Exercícios</th><th class="n">Revisão</th><th></th></tr></thead>
+   <tbody>${rows||`<tr><td colspan="10" class="muted">Nenhuma disciplina. Use “Adicionar disciplina”.</td></tr>`}</tbody>
+   <tfoot><tr><td colspan="5">Total</td><td class="n">${fmtH(tot.min)}</td><td class="n">${fmtH(tot.t)}</td><td class="n">${fmtH(tot.e)}</td><td class="n">${fmtH(tot.r)}</td><td></td></tr></tfoot>`;
+  $("planoTbl").querySelectorAll("[data-f]").forEach(el=>el.onchange=()=>{garantirReal();const d=D.disciplinas[+el.dataset.i],f=el.dataset.f;d[f]=f==="nome"?(el.value.trim()||"Sem nome"):Math.max(f==="nivel"?1:0,Number(el.value)||0);salvar();render()});
+  $("planoTbl").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>armar(b,"Confirmar",()=>{garantirReal();const d=D.disciplinas[+b.dataset.del];D.disciplinas.splice(+b.dataset.del,1);if(d){D.revisoes=D.revisoes.filter(r=>r.disc!==d.id)}salvar();render()}));
+  $("planoTbl").querySelectorAll("[data-ass]").forEach(b=>b.onclick=()=>{assAberto=assAberto===b.dataset.ass?null:b.dataset.ass;renderEdital()});
+  // painel de assuntos
+  const d=disc(assAberto);
+  if(!d){$("assPanel").innerHTML="";return}
+  $("assPanel").innerHTML=`<div class="assuntos"><div class="sheet-head"><b>Assuntos de ${esc(d.nome)}</b><span class="small muted">Toque no estado para alternar: pendente → estudado → revisado</span></div>
+    <div class="chips">${d.assuntos.map(a=>`<span class="chip ${a.status||"pendente"}"><span title="${esc(a.nome)}">${esc(a.nome)}</span><button class="st" data-st="${a.id}">${a.status||"pendente"}</button><button class="x" data-ax="${a.id}" aria-label="Remover ${esc(a.nome)}">✕</button></span>`).join("")||`<span class="small muted">Nenhum assunto ainda.</span>`}</div>
+    <label for="assNovo">Adicionar assuntos (cole a lista do edital: um por linha ou separados por ponto e vírgula)<textarea id="assNovo" rows="3" placeholder="Fato gerador; Base de cálculo; Substituição tributária"></textarea></label>
+    <div class="row"><button class="primary sm" id="btnAssAdd">Adicionar</button></div></div>`;
+  $("btnAssAdd").onclick=()=>{const itens=$("assNovo").value.split(/[\n;]+/).map(s=>s.replace(/^\s*[\d.\-–)]+\s*/,"").trim()).filter(Boolean);if(!itens.length)return;garantirReal();const dd=disc(assAberto);const ex=new Set(dd.assuntos.map(a=>norm(a.nome)));itens.forEach(n=>{if(!ex.has(norm(n))){dd.assuntos.push({id:uid(),nome:n.slice(0,120),status:"pendente"});ex.add(norm(n))}});salvar();render();toast(itens.length+(itens.length===1?" assunto adicionado.":" assuntos adicionados."))};
+  $("assPanel").querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{garantirReal();const a=disc(assAberto).assuntos.find(x=>x.id===b.dataset.st);const ord=["pendente","estudado","revisado"];a.status=ord[(ord.indexOf(a.status||"pendente")+1)%3];salvar();render()});
+  $("assPanel").querySelectorAll("[data-ax]").forEach(b=>b.onclick=()=>armar(b,"Remover?",()=>{garantirReal();const dd=disc(assAberto);dd.assuntos=dd.assuntos.filter(a=>a.id!==b.dataset.ax);salvar();render()}));
+}
+const edCampo=(id,f)=>$(id).addEventListener("change",()=>{garantirReal();f($(id).value);salvar();render()});
+edCampo("dConc",v=>D.edital.concurso=v.trim());edCampo("dBanca",v=>D.edital.banca=v.trim());edCampo("dData",v=>D.edital.dataProva=v);
+edCampo("dCorte",v=>D.edital.notaCorte=Math.min(100,Math.max(0,+v||0)));edCampo("dHoras",v=>D.horasSemana=Math.max(0,+v||0));
+$("btnAddDisc").onclick=()=>{garantirReal();const d={id:uid(),nome:"Nova disciplina",peso:1,nivel:3,assuntos:[]};D.disciplinas.push(d);salvar();render();const el=$("n_"+d.id);if(el){el.focus();el.select()}};
+
+/* ================= EVOLUÇÃO ================= */
+function lineChart(pts){
+  const W=640,H=220,L=40,R=12,T=14,B=30;const n=pts.length;const x=i=>n===1?(L+W-R)/2:L+i*(W-L-R)/(n-1);const y=v=>T+(H-T-B)*(1-v/100);
+  let g="";[0,25,50,75,100].forEach(t=>{g+=`<line x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)"/><text x="${L-6}" y="${y(t)+4}" text-anchor="end">${t}%</text>`});
+  const cut=pts.filter(p=>p.c);if(cut.length)g+=`<polyline fill="none" stroke="var(--crit)" stroke-width="2" stroke-dasharray="6 5" points="${pts.map((p,i)=>p.c?x(i)+","+y(p.c):"").filter(Boolean).join(" ")}"/>`;
+  g+=`<polyline fill="none" stroke="var(--simu)" stroke-width="2.5" points="${pts.map((p,i)=>x(i)+","+y(p.v)).join(" ")}"/>`;
+  pts.forEach((p,i)=>{g+=`<circle cx="${x(i)}" cy="${y(p.v)}" r="${i===n-1?5:3.5}" fill="var(--simu)"/><text x="${x(i)}" y="${H-10}" text-anchor="middle">${esc(p.rot)}</text>`});
+  const l=pts[n-1];g+=`<text x="${Math.min(x(n-1),W-R-30)}" y="${y(l.v)-10}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${l.v.toFixed(1)}%</text>`;
+  return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Notas dos simulados">${g}</svg>`;
+}
+function evoChart(ws){
+  const W=640,H=240,L=44,R=44,T=16,B=30;const n=ws.length;const bw=(W-L-R)/n;
+  const maxMin=Math.max(60,...ws.map(w=>w.min));const stepH=Math.max(1,Math.ceil(maxMin/60/4));const topH=stepH*4;
+  const yH=m=>T+(H-T-B)*(1-m/(topH*60)),yP=p=>T+(H-T-B)*(1-p/100);
+  let g="";for(let k=0;k<=4;k++){const h=k*stepH;g+=`<line x1="${L}" x2="${W-R}" y1="${yH(h*60)}" y2="${yH(h*60)}" stroke="var(--line)"/><text x="${L-6}" y="${yH(h*60)+4}" text-anchor="end">${h}h</text><text x="${W-R+6}" y="${yH(h*60)+4}">${k*25}%</text>`}
+  ws.forEach((w,i)=>{const x0=L+i*bw+bw*.18,bh=yH(0)-yH(w.min);g+=`<rect x="${x0}" y="${yH(w.min)}" width="${bw*.64}" height="${Math.max(0,bh)}" rx="3" fill="var(--navy-soft)" stroke="var(--navy)" stroke-width="1"/><text x="${L+i*bw+bw/2}" y="${H-10}" text-anchor="middle">${fmtData(w.ini).slice(0,5)}</text>`});
+  const pp=ws.map((w,i)=>w.q?[L+i*bw+bw/2,yP(100*w.a/w.q)]:null).filter(Boolean);
+  if(pp.length>1)g+=`<polyline fill="none" stroke="var(--beam)" stroke-width="2.5" points="${pp.map(p=>p.join(",")).join(" ")}"/>`;
+  ws.forEach((w,i)=>{if(w.q){const cx=L+i*bw+bw/2,cy=yP(100*w.a/w.q);g+=`<circle cx="${cx}" cy="${cy}" r="${i===n-1?5:3.5}" fill="var(--beam)" stroke="var(--paper)" stroke-width="1.5"/>`;if(i===ws.map(w=>!!w.q).lastIndexOf(true))g+=`<text x="${Math.min(cx,W-R-24)}" y="${cy-10}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${Math.round(100*w.a/w.q)}%</text>`}});
+  return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Horas por semana e percentual de acerto">${g}</svg>`;
+}
+function renderEvolucao(){
+  const p=plano(),st=stats(),metaSem=(Number(D.horasSemana)||0)*60;
+  const feitoSem=Object.values(st).reduce((a,x)=>a+x.semTot,0);
+  const tq=Object.values(st).reduce((a,x)=>a+x.q,0)+D.simulados.filter(s=>!(s.porDisc||[]).length).reduce((a,s)=>a+s.total,0);
+  const ta=Object.values(st).reduce((a,x)=>a+x.a,0)+D.simulados.filter(s=>!(s.porDisc||[]).length).reduce((a,s)=>a+s.acertos,0);
+  const nA=D.disciplinas.reduce((a,d)=>a+d.assuntos.length,0),nE=D.disciplinas.reduce((a,d)=>a+d.assuntos.filter(x=>x.status!=="pendente").length,0);
+  const ult=[...D.simulados].sort((a,b)=>b.data.localeCompare(a.data))[0];
+  $("kpis").innerHTML=[[fmtH(feitoSem),"nesta semana · meta "+fmtH(metaSem)],[pctTxt(tq,ta),"de acerto em "+tq+" questões"],[nA?Math.round(100*nE/nA)+"%":"—",nA?`do edital estudado (${nE}/${nA})`:"cadastre os assuntos do edital"],[ult?(100*ult.acertos/ult.total).toFixed(1)+"%":"—",ult?"último simulado"+(ult.notaCorte?" · corte "+ult.notaCorte+"%":""):"nenhum simulado ainda"]].map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join("");
+  // diagnóstico
+  const out=[];const dias=((new Date().getDay()+6)%7)+1;const H_=hoje();
+  const atras=revPend().filter(r=>r.data<H_);if(atras.length)out.push({sev:3,peso:9,c:"crit",t:`${atras.length} ${atras.length===1?"revisão atrasada":"revisões atrasadas"}`,p:"Revisões atrasadas fazem o conteúdo escapar. Comece o dia por elas na tela Hoje, antes de assunto novo."});
+  if(ult&&ult.notaCorte){const n=100*ult.acertos/ult.total;if(n<ult.notaCorte)out.push({sev:3,peso:8,c:"crit",t:`Último simulado ${(ult.notaCorte-n).toFixed(1)} p.p. abaixo da nota de corte`,p:`Nota ${n.toFixed(1)}% contra corte de ${ult.notaCorte}%. Veja abaixo as disciplinas de maior peso com acerto baixo: é nelas que cada ponto rende mais.`})}
+  const dp=diasProva();if(dp!==null&&dp>0&&nA){const ritmo=nE/Math.max(1,D.sessoes.length?Math.max(7,diasEntre(D.sessoes.map(s=>s.data).sort()[0],H_)):7);const precisa=(nA-nE)/dp;if(ritmo<precisa&&nA>nE)out.push({sev:2,peso:7,c:"warn",t:`Faltam ${nA-nE} assuntos do edital para ${dp} dias`,p:`No ritmo atual, o edital não fecha antes da prova. É preciso cobrir cerca de ${(precisa*7).toFixed(1)} assuntos por semana. Considere aumentar as horas semanais ou priorizar os assuntos mais cobrados pela banca.`})}
+  D.disciplinas.forEach(d=>{const x=st[d.id],m=p[d.id],peso=+d.peso||0,nm=esc(d.nome),pct=x.q?x.a/x.q:null;
+    if(x.q>=10&&pct<.6)out.push({sev:3,peso,c:"crit",t:`${nm}: ${Math.round(pct*100)}% de acerto em ${x.q} questões`,p:`Abaixo de 60%. Volte à teoria dos assuntos em que mais erra, use o caderno de erros e só depois retome assuntos novos.${d.nivel>=4?" O nível marcado ("+NIVEIS[d.nivel]+") parece alto; baixe no Edital para receber mais horas de teoria.":""}`});
+    else if(x.q>=10&&pct<.75)out.push({sev:2,peso,c:"warn",t:`${nm}: ${Math.round(pct*100)}% de acerto em ${x.q} questões`,p:"Entre 60% e 74%. Aumente as questões da banca e anote os erros por assunto."});
+    if(x.q<10&&peso>=3&&m.min>0)out.push({sev:2,peso,c:"warn",t:`${nm}: só ${x.q} questões resolvidas`,p:`Matéria de peso ${peso}. Linke um caderno de questões em Questões para treinar com a banca.`});
+    if(m.min>0){const esp=m.min*dias/7;if(x.semTot<esp*.6)out.push({sev:x.semTot<esp*.3?3:2,peso,c:x.semTot<esp*.3?"crit":"warn",t:`${nm}: ${fmtH(x.semTot)} de ${fmtH(esp)} previstas até hoje`,p:`Meta da semana: ${fmtH(m.min)}. Faltam ${fmtH(Math.max(0,m.min-x.semTot))}.`})}
+    if(x.q>=30&&pct>=.85&&d.nivel<=3)out.push({sev:0,peso,c:"ok",t:`${nm}: ${Math.round(pct*100)}% em ${x.q} questões`,p:"Desempenho alto para o nível marcado. Suba o nível no Edital para liberar horas para as matérias mais fracas."});
+  });
+  const mt=motivoTop();if(mt&&D.erros.filter(e=>!e.resolvida).length>=3)out.push({sev:1,peso:5,c:"warn",t:`Erro mais comum: ${esc(mt.toLowerCase())}`,p:mt==="Falta de atenção"||mt==="Interpretação do enunciado"?"Leia o comando da questão duas vezes e grife palavras como “exceto”, “incorreto” e “salvo”.":mt==="Pegadinha da banca"?"Faça mais questões da mesma banca: as pegadinhas se repetem.":"Volte à teoria desses assuntos antes de fazer mais questões."});
+  out.sort((a,b)=>b.sev-a.sev||b.peso-a.peso);
+  $("diag").innerHTML=out.length?out.slice(0,10).map(o=>`<li class="item ${o.c}"><div><div class="t">${o.t}</div><div class="s">${o.p}</div></div></li>`).join(""):`<li class="item ok"><div><div class="t">Nada pedindo atenção agora</div><div class="s">Continue registrando sessões, questões e simulados.</div></div></li>`;
+  $("evoChart").innerHTML=evoChart(semanas(8));
+  const maxMin=Math.max(1,...D.disciplinas.map(d=>Math.max(p[d.id].min,st[d.id].semTot)));
+  $("bars").innerHTML=D.disciplinas.length?D.disciplinas.map(d=>{const x=st[d.id],m=p[d.id],w=k=>100*x.sem[k]/maxMin;
+    return`<div class="bar"><span class="nm" title="${esc(d.nome)}">${esc(d.nome)}</span><div class="tr"><div style="position:absolute;inset:0 auto 0 0;width:${100*m.min/maxMin}%;border-right:2px dashed var(--muted);opacity:.6"></div><i style="width:${w("teoria")}%;background:var(--teoria)"></i><i style="width:${w("exercicio")}%;background:var(--exerc)"></i><i style="width:${w("revisao")}%;background:var(--rev)"></i></div><span class="v">${fmtH(x.semTot)} / ${fmtH(m.min)}</span></div>`}).join(""):`<div class="empty">Cadastre disciplinas no Edital.</div>`;
+  const rows=D.disciplinas.map(d=>({d,x:st[d.id]})).sort((a,b)=>((+b.d.peso||0)*(b.x.q>=10?1-b.x.a/b.x.q:0))-((+a.d.peso||0)*(a.x.q>=10?1-a.x.a/a.x.q:0)));
+  $("perfTbl").innerHTML=`<thead><tr><th>Disciplina</th><th class="n">Peso</th><th class="n">Horas</th><th class="n">Questões</th><th class="n">Acertos</th><th class="n">% acerto</th><th>Situação</th></tr></thead><tbody>${rows.map(({d,x})=>{const [c,l]=classe(x.q,x.a);return`<tr><td>${esc(d.nome)}</td><td class="n">${esc(d.peso)}</td><td class="n">${fmtH(x.tot)}</td><td class="n">${x.q}</td><td class="n">${x.a}</td><td class="n">${pctTxt(x.q,x.a)}</td><td><span class="pill ${c}">${l}</span></td></tr>`}).join("")||`<tr><td colspan="7" class="muted">Sem disciplinas.</td></tr>`}</tbody>`;
+  const fr=[];D.disciplinas.forEach(d=>Object.entries(st[d.id].ass).forEach(([aId,r])=>{if(r.q>=5&&assunto(d.id,aId))fr.push({d,a:assunto(d.id,aId),r})}));
+  fr.sort((a,b)=>a.r.a/a.r.q-b.r.a/b.r.q);
+  $("assFracos").innerHTML=fr.length?`<div class="tbl"><table><thead><tr><th>Assunto</th><th>Disciplina</th><th class="n">Questões</th><th class="n">% acerto</th><th></th></tr></thead><tbody>${fr.slice(0,8).map(f=>{const [c]=classe(f.r.q<10?10:f.r.q,f.r.q<10?Math.round(10*f.r.a/f.r.q):f.r.a);return`<tr><td>${esc(f.a.nome)}</td><td>${esc(f.d.nome)}</td><td class="n">${f.r.q}</td><td class="n"><span class="pill ${c}">${pctTxt(f.r.q,f.r.a)}</span></td><td><button class="sm" data-fgo="${f.d.id}|${f.a.id}">Revisar</button></td></tr>`}).join("")}</tbody></table></div>`:`<p class="small muted">Lance questões com o assunto escolhido (no cronômetro, no registro ou nos cadernos) para ver aqui os tópicos mais fracos. Aparecem assuntos com pelo menos 5 questões.</p>`;
+  $("assFracos").querySelectorAll("[data-fgo]").forEach(b=>b.onclick=()=>{const [dI,aI]=b.dataset.fgo.split("|");irEstudar(dI,aI,"revisao")});
+}
+
+/* ================= REGISTRO ================= */
 let filtro="";
 function renderRegistro(){
-  const opts=cfg.disciplinas.map(d=>`<option value="${d.id}">${esc(d.nome)}</option>`).join("");
-  const rd=$("rDisc").value;$("rDisc").innerHTML=opts;if(rd&&cfg.disciplinas.find(d=>d.id===rd))$("rDisc").value=rd;
-  $("fDisc").innerHTML=`<option value="">Todas as disciplinas</option>`+opts;$("fDisc").value=filtro;
+  optsDisc($("rDisc"),$("rDisc").value);optsAss($("rAss"),$("rDisc").value,$("rAss").value);
+  optsDisc($("fDisc"),filtro,"Todas as disciplinas");
   if(!$("rData").value)$("rData").value=hoje();
-  const lista=sessoes.filter(s=>!filtro||s.disc===filtro).sort((a,b)=>b.data.localeCompare(a.data)||(b.id>a.id?1:-1));
-  if(!lista.length){$("histWrap").innerHTML=`<div class="empty">Nenhuma sessão registrada ainda. Use o cronômetro ou o formulário acima.</div>`;return}
+  const lista=D.sessoes.filter(s=>!filtro||s.disc===filtro).sort((a,b)=>b.data.localeCompare(a.data)||(b.id>a.id?1:-1));
+  if(!lista.length){$("histWrap").innerHTML=`<div class="empty">Nenhuma sessão registrada ainda.</div>`;return}
   const tq=lista.reduce((a,s)=>a+(+s.questoes||0),0),ta=lista.reduce((a,s)=>a+(+s.acertos||0),0),tm=lista.reduce((a,s)=>a+(+s.min||0),0);
-  $("histWrap").innerHTML=`<div class="tbl"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Tipo</th><th class="n">Tempo</th><th class="n">Questões</th><th class="n">Acertos</th><th class="n">% acerto</th><th></th></tr></thead><tbody>${lista.map(s=>{const [c]=classe(s.questoes,s.acertos);return`<tr><td>${fmtData(s.data)}</td><td>${esc(nomeDisc(s.disc))}</td><td><i class="dot" style="background:${TIPOS[s.tipo].cor}"></i>${TIPOS[s.tipo].nome}</td><td class="n">${fmtH(s.min)}</td><td class="n">${s.questoes||"—"}</td><td class="n">${s.questoes?s.acertos:"—"}</td><td class="n">${s.questoes?`<span class="pill ${s.questoes>=10?c:"none"}">${pctTxt(s.questoes,s.acertos)}</span>`:"—"}</td><td><button class="icon ghost" data-dels="${s.id}">Excluir</button></td></tr>`}).join("")}</tbody><tfoot><tr><td colspan="3">${lista.length} sessões</td><td class="n">${fmtH(tm)}</td><td class="n">${tq}</td><td class="n">${ta}</td><td class="n">${pctTxt(tq,ta)}</td><td></td></tr></tfoot></table></div>`;
-  $("histWrap").querySelectorAll("[data-dels]").forEach(b=>b.onclick=()=>{
-    if(!b.dataset.arm){b.dataset.arm="1";b.textContent="Confirmar";b.classList.add("danger");setTimeout(()=>{if(b.isConnected){delete b.dataset.arm;b.textContent="Excluir";b.classList.remove("danger")}},4000);return}
-    if(modoExemplo){toast("Estes são dados de exemplo. Use o aviso no topo para começar com os seus.");return}
-    const i=sessoes.findIndex(s=>s.id===b.dataset.dels);if(i<0)return;const [s]=sessoes.splice(i,1);store.delSessao(s);render();toast("Sessão excluída.");
-  });
+  const vis=lista.slice(0,150);
+  $("histWrap").innerHTML=`<div class="tbl"><table><thead><tr><th>Data</th><th>Disciplina</th><th>Assunto</th><th>Tipo</th><th class="n">Tempo</th><th class="n">Questões</th><th class="n">% acerto</th><th></th></tr></thead><tbody>${vis.map(s=>{const [c]=classe(s.questoes,s.acertos);return`<tr><td>${fmtData(s.data)}</td><td>${esc(nomeDisc(s.disc))}</td><td>${esc(nomeAss(s.disc,s.assunto)||"—")}${s.origem?` <span class="pill ${s.origem==="Método Camocim"?"gold":"none"}">${esc(s.origem)}</span>`:""}</td><td><i class="dot" style="background:${TIPOS[s.tipo].cor}"></i>${TIPOS[s.tipo].nome}</td><td class="n">${s.min?fmtH(s.min):"—"}</td><td class="n">${s.questoes?s.acertos+"/"+s.questoes:"—"}</td><td class="n">${s.questoes?`<span class="pill ${s.questoes>=10?c:"none"}">${pctTxt(s.questoes,s.acertos)}</span>`:"—"}</td><td><button class="sm ghost" data-dels="${s.id}">Excluir</button></td></tr>`}).join("")}</tbody><tfoot><tr><td colspan="4">${lista.length} sessões${lista.length>150?" (mostrando as 150 mais recentes)":""}</td><td class="n">${fmtH(tm)}</td><td class="n">${ta}/${tq}</td><td class="n">${pctTxt(tq,ta)}</td><td></td></tr></tfoot></table></div>`;
+  $("histWrap").querySelectorAll("[data-dels]").forEach(b=>b.onclick=()=>armar(b,"Confirmar",()=>{garantirReal();D.sessoes=D.sessoes.filter(s=>s.id!==b.dataset.dels);salvar();render();toast("Sessão excluída.")}));
 }
 $("fDisc").onchange=e=>{filtro=e.target.value;renderRegistro()};
 $("btnAddReg").onclick=()=>{
-  const r=novaSessao($("rData").value||hoje(),$("rDisc").value,$("rTipo").value,$("rMin").value,$("rQ").value,$("rA").value);
-  $("regErr").textContent=r;if(!r){$("rMin").value="";$("rQ").value=0;$("rA").value=0;toast("Sessão lançada.")}
+  const r=novaSessao({data:$("rData").value||hoje(),disc:$("rDisc").value,assunto:$("rAss").value,tipo:$("rTipo").value,min:$("rMin").value,questoes:$("rQ").value,acertos:$("rA").value,agendar:$("rTipo").value==="teoria",marcar:true});
+  $("regErr").textContent=r;if(!r){$("rMin").value="";$("rQ").value=0;$("rA").value=0;toast($("rTipo").value==="teoria"?"Sessão lançada e revisões agendadas.":"Sessão lançada.")}
 };
-
-/* ---------- Desempenho ---------- */
-function renderDesempenho(){
-  const p=plano(),st=stats();
-  const metaSem=(Number(cfg.horasSemana)||0)*60;
-  const feitoSem=Object.values(st).reduce((a,x)=>a+x.semTot,0);
-  const tq=Object.values(st).reduce((a,x)=>a+x.q,0),ta=Object.values(st).reduce((a,x)=>a+x.a,0);
-  const totMin=Object.values(st).reduce((a,x)=>a+x.tot,0);
-  $("kpis").innerHTML=[[fmtH(feitoSem),"estudadas nesta semana · meta "+fmtH(metaSem)],[fmtH(totMin),"estudadas no total"],[tq,"questões resolvidas"],[pctTxt(tq,ta),"acerto geral"]].map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${s}</span></div>`).join("");
-
-  // diagnóstico
-  const hojeS=hoje();const dias=((new Date().getDay()+6)%7)+1; // 1=seg … 7=dom
-  const out=[];
-  cfg.disciplinas.forEach(d=>{const x=st[d.id],m=p[d.id];const peso=Number(d.peso)||0;const nm=esc(d.nome);
-    const pct=x.q?x.a/x.q:null;
-    if(x.q>=10&&pct<.6)out.push({sev:3,peso,c:"crit",t:`${nm}: acerto de ${Math.round(pct*100)}% em ${x.q} questões`,p:`Abaixo de 60%. Volte à teoria dos assuntos em que mais erra, refaça as questões erradas com o comentário ao lado e só depois retome blocos novos.${d.nivel>=4?" Seu nível marcado ("+NIVEIS[d.nivel]+") parece alto para esse resultado; baixe o nível no Plano para receber mais horas de teoria.":""}`});
-    else if(x.q>=10&&pct<.75)out.push({sev:2,peso,c:"warn",t:`${nm}: acerto de ${Math.round(pct*100)}% em ${x.q} questões`,p:"Entre 60% e 74%. Aumente o volume de questões da banca e anote os erros por assunto para revisar."});
-    if(x.q<10&&peso>=3&&m&&m.min>0)out.push({sev:2,peso,c:"warn",t:`${nm}: só ${x.q} questões resolvidas`,p:`Matéria de peso ${peso}. Sem questões não dá para medir o seu nível; reserve parte do tempo de exercícios (${fmtH(m.exercicio)} por semana) para treinar com a banca.`});
-    if(m&&m.min>0){const esperado=m.min*dias/7;if(x.semTot<esperado*.6)out.push({sev:x.semTot<esperado*.3?3:2,peso,c:x.semTot<esperado*.3?"crit":"warn",t:`${nm}: ${fmtH(x.semTot)} estudadas de ${fmtH(esperado)} previstas até hoje`,p:`Meta da semana: ${fmtH(m.min)}. Faltam ${fmtH(Math.max(0,m.min-x.semTot))} para fechar a semana.`})}
-    if(x.ultTeoria){const sem=x.ultRev?diasEntre(x.ultRev,hojeS):null;if(x.ultRev===null||sem>10){out.push({sev:1,peso,c:"warn",t:`${nm}: ${x.ultRev?"sem revisão há "+sem+" dias":"nenhuma revisão registrada"}`,p:"Revisões curtas e frequentes fixam o conteúdo. Programe uma revisão do que estudou nos últimos dias."})}}
-    if(x.q>=30&&pct>=.85&&d.nivel<=3)out.push({sev:0,peso,c:"ok",t:`${nm}: ${Math.round(pct*100)}% de acerto em ${x.q} questões`,p:"Desempenho alto para o nível marcado. Suba o nível no Plano para liberar horas para as matérias mais fracas."});
-  });
-  out.sort((a,b)=>b.sev-a.sev||b.peso-a.peso);
-  $("diag").innerHTML=out.length?out.slice(0,10).map(o=>`<li class="${o.c}"><div><div class="t">${o.t}</div><p>${o.p}</p></div></li>`).join(""):`<li class="ok"><div><div class="t">Nada pedindo atenção agora</div><p>Continue registrando sessões e questões para manter o diagnóstico atualizado.</p></div></li>`;
-
-  // barras
-  const maxMin=Math.max(1,...cfg.disciplinas.map(d=>Math.max(p[d.id].min,st[d.id].semTot)));
-  $("bars").innerHTML=cfg.disciplinas.length?cfg.disciplinas.map(d=>{const x=st[d.id],m=p[d.id];const w=k=>100*x.sem[k]/maxMin;
-    return`<div class="bar"><span class="nm" title="${esc(d.nome)}">${esc(d.nome)}</span><div class="tr" style="width:100%"><div style="position:absolute;inset:0 auto 0 0;width:${100*m.min/maxMin}%;border-right:2px dashed var(--muted);opacity:.55"></div><i style="width:${w("teoria")}%;background:var(--teoria)"></i><i style="width:${w("exercicio")}%;background:var(--exerc)"></i><i style="width:${w("revisao")}%;background:var(--rev)"></i></div><span class="v">${fmtH(x.semTot)} / ${fmtH(m.min)}</span></div>`}).join(""):`<div class="empty">Cadastre disciplinas no Plano semanal.</div>`;
-
-  // tabela
-  const rows=cfg.disciplinas.map(d=>{const x=st[d.id];const [c,l]=classe(x.q,x.a);const pot=x.q>=10?(Number(d.peso)||0)*(1-x.a/x.q):null;return{d,x,c,l,pot}})
-    .sort((a,b)=>(b.pot??-1)-(a.pot??-1));
-  $("perfTbl").innerHTML=`<thead><tr><th>Disciplina</th><th class="n">Peso</th><th class="n">Teoria</th><th class="n">Exercícios</th><th class="n">Revisão</th><th class="n">Questões</th><th class="n">Acertos</th><th class="n">% acerto</th><th>Situação</th></tr></thead><tbody>${rows.map(({d,x,c,l})=>`<tr><td>${esc(d.nome)}</td><td class="n">${esc(d.peso)}</td><td class="n">${fmtH(x.porTipo.teoria)}</td><td class="n">${fmtH(x.porTipo.exercicio)}</td><td class="n">${fmtH(x.porTipo.revisao)}</td><td class="n">${x.q}</td><td class="n">${x.a}</td><td class="n">${pctTxt(x.q,x.a)}</td><td><span class="pill ${c}">${l}</span></td></tr>`).join("")||`<tr><td colspan="9" class="muted">Sem disciplinas.</td></tr>`}</tbody>`;
-}
-
-/* ---------- Backup ---------- */
+/* backup */
 $("btnExport").onclick=()=>{
-  if(modoExemplo){toast("Você ainda está com dados de exemplo.");}
-  const dados={app:"caderno-estudos",versao:1,exportadoEm:new Date().toISOString(),cfg,sessoes};
-  const blob=new Blob([JSON.stringify(dados,null,2)],{type:"application/json"});
-  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="metodo-calango-backup-"+hoje()+".json";
-  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
-  LS("ce_ultimoBackup",hoje());toast("Backup exportado.");
+  const blob=new Blob([JSON.stringify({app:"farol-aprovacao",versao:5,exportadoEm:new Date().toISOString(),dados:D},null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="farol-aprovacao-backup-"+hoje()+".json";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+  toast(exemplo?"Exportado (são dados de exemplo).":"Backup exportado.");
 };
 let pendente=null;
-$("fImport").onchange=e=>{
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=()=>{try{const d=JSON.parse(r.result);if(d.app!=="caderno-estudos"||!d.cfg||!Array.isArray(d.sessoes))throw 0;
-      pendente=d;$("importInfo").textContent=`Backup de ${fmtData(d.exportadoEm.slice(0,10))}: ${d.cfg.disciplinas.length} disciplinas e ${d.sessoes.length} sessões.`;$("importConfirm").hidden=false}
-    catch(x){toast("Esse arquivo não é um backup do Método Calango.");e.target.value=""}};
-  r.readAsText(f);
-};
+$("fImport").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const j=JSON.parse(r.result);let d=null;
+      if(j.app==="farol-aprovacao"&&j.dados)d=completar(j.dados);
+      else if(j.app==="caderno-estudos"&&j.cfg)d=migrarCalango(j.cfg,j.sessoes);
+      if(!d||!Array.isArray(d.disciplinas))throw 0;
+      pendente=d;$("importInfo").textContent=`Backup${j.exportadoEm?" de "+fmtData(j.exportadoEm.slice(0,10)):""}: ${d.disciplinas.length} disciplinas e ${d.sessoes.length} sessões.`;$("importConfirm").hidden=false}
+    catch(x){toast("Esse arquivo não é um backup do Farol nem do Método Calango.");e.target.value=""}};r.readAsText(f)};
 $("btnImportCancel").onclick=()=>{pendente=null;$("importConfirm").hidden=true;$("fImport").value=""};
-$("btnImportOk").onclick=()=>{if(!pendente)return;cfg=pendente.cfg;sessoes=pendente.sessoes;modoExemplo=false;LS("ce_cfg",cfg);LS("ce_ses",sessoes);pendente=null;$("importConfirm").hidden=true;$("fImport").value="";render();toast("Backup restaurado.")};
+$("btnImportOk").onclick=()=>{if(!pendente)return;D=pendente;exemplo=false;salvar();pendente=null;$("importConfirm").hidden=true;$("fImport").value="";render();toast("Backup restaurado.")};
 
-/* ---------- Instalação ---------- */
+/* ================= resultado vindo do Método Camocim ================= */
+function lerResultado(){
+  let raw=null;try{raw=new URLSearchParams(location.search).get("resultado")}catch(e){}
+  if(!raw)return;
+  try{history.replaceState(null,"",location.pathname+location.hash)}catch(e){}
+  let r;try{const b=raw.replace(/-/g,"+").replace(/_/g,"/");const bin=atob(b+"===".slice((b.length+3)%4));r=JSON.parse(new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0))))}catch(e){toast("Não consegui ler o resultado enviado.");return}
+  if(!r||typeof r!=="object")return;
+  const linhas=(Array.isArray(r.porDisc)&&r.porDisc.length?r.porDisc:[{disciplina:r.disciplina,assunto:r.assunto,questoes:r.questoes,acertos:r.acertos}])
+    .map(p=>({nome:String(p.disciplina||"Sem disciplina").slice(0,100),assunto:String(p.assunto||"").slice(0,120),q:Math.max(0,Math.round(+p.questoes||0)),a:Math.max(0,Math.round(+p.acertos||0))})).filter(p=>p.q>0&&p.a<=p.q);
+  if(!linhas.length){toast("O resultado enviado não tem questões.");return}
+  const erros=(Array.isArray(r.erros)?r.erros:[]).slice(0,30).map(e=>({disciplina:String(e.disciplina||"").slice(0,100),assunto:String(e.assunto||"").slice(0,120),texto:String(e.texto||"").slice(0,400),link:safeUrl(e.link)}));
+  const match=n=>{const k=norm(n);const d=D.disciplinas.find(d=>norm(d.nome)===k)||D.disciplinas.find(d=>norm(d.nome).includes(k)||k.includes(norm(d.nome)));return d?d.id:"__novo"};
+  const tq=linhas.reduce((a,p)=>a+p.q,0),ta=linhas.reduce((a,p)=>a+p.a,0);
+  const grupos=[];linhas.forEach(p=>{let g=grupos.find(g=>norm(g.nome)===norm(p.nome));if(!g){g={nome:p.nome,q:0,a:0,assuntos:[]};grupos.push(g)}g.q+=p.q;g.a+=p.a;if(p.assunto&&!g.assuntos.includes(p.assunto))g.assuntos.push(p.assunto)});
+  const ehSim=r.tipo==="simulado";
+  $("dlgResBody").innerHTML=`<h2>Resultado recebido do Método Camocim</h2>
+    <p><b>${esc(String(r.nome||(ehSim?"Simulado":"Caderno")).slice(0,140))}</b><br><span class="muted">${ehSim?"Simulado":"Caderno de questões"} · ${ta} acertos em ${tq} questões (${pctTxt(tq,ta)})${r.minutos?" · "+fmtH(+r.minutos):""}</span></p>
+    ${exemplo?`<p class="small" style="color:var(--warn)">Você está com dados de exemplo. Ao confirmar, o Farol começa com seus dados reais e mantém só as disciplinas.</p>`:""}
+    <div style="display:flex;flex-direction:column;gap:10px">${grupos.map((g,i)=>`<div class="inline-form"><div class="sheet-head"><div><b>${esc(g.nome)}</b>${g.assuntos.length?`<div class="small muted">${esc(g.assuntos.slice(0,4).join(" · "))}${g.assuntos.length>4?" e mais "+(g.assuntos.length-4):""}</div>`:""}</div><span class="mono small">${g.a}/${g.q} · ${pctTxt(g.q,g.a)}</span></div><label for="rm_${i}">Lançar na disciplina<select id="rm_${i}"><option value="__novo">Criar a disciplina “${esc(g.nome)}”</option>${D.disciplinas.map(d=>`<option value="${d.id}" ${match(g.nome)===d.id?"selected":""}>${esc(d.nome)}</option>`).join("")}</select></label></div>`).join("")}</div>
+    ${erros.length?`<label class="check"><input type="checkbox" id="rmErr" checked> ${erros.length===1?"Anotar a questão errada":"Anotar as "+erros.length+" questões erradas"} no caderno de erros</label>`:""}
+    <div class="row"><button class="primary" id="rmOk">Lançar no Farol</button><button class="ghost" id="rmNo">Agora não</button></div>`;
+  const dlg=$("dlgRes");try{dlg.showModal()}catch(e){dlg.setAttribute("open","")}
+  $("rmNo").onclick=()=>dlg.close();
+  $("rmOk").onclick=()=>{
+    garantirReal();
+    const idPor=(i,nome)=>{let v=$("rm_"+i).value;if(v==="__novo"){const ex=D.disciplinas.find(d=>norm(d.nome)===norm(nome));if(ex)return ex.id;const d={id:uid(),nome,peso:1,nivel:3,assuntos:[]};D.disciplinas.push(d);return d.id}return v};
+    const assId=(dId,nome)=>{if(!nome)return"";const d=disc(dId);let a=d.assuntos.find(x=>norm(x.nome)===norm(nome));if(!a){a={id:uid(),nome,status:"pendente"};d.assuntos.push(a)}return a.id};
+    const gIds=grupos.map((g,i)=>idPor(i,g.nome));
+    const mapa=linhas.map(p=>{const dId=gIds[grupos.findIndex(g=>norm(g.nome)===norm(p.nome))];return{...p,dId,aId:assId(dId,p.assunto)}});
+    const data=/^\d{4}-\d{2}-\d{2}$/.test(r.data||"")?r.data:hoje();
+    if(ehSim){D.simulados.push({id:uid(),data,nome:String(r.nome||"Simulado").slice(0,140),banca:String(r.banca||"").slice(0,40),link:safeUrl(r.link),min:Math.round(+r.minutos||0),total:tq,acertos:ta,notaCorte:+r.notaCorte||D.edital.notaCorte||0,porDisc:mapa.map(m=>({disc:m.dId,q:m.q,a:m.a}))})}
+    else{const minTot=Math.round(+r.minutos||0);
+      mapa.forEach(m=>D.sessoes.push({id:uid(),data,disc:m.dId,assunto:m.aId,tipo:"exercicio",min:Math.round(minTot*m.q/tq),questoes:m.q,acertos:m.a,origem:"Método Camocim"}));
+      const nome=String(r.nome||"Caderno do Camocim").slice(0,140);let c=D.cadernos.find(c=>c.fonte==="Método Camocim"&&(r.id&&c.extId===String(r.id)||norm(c.nome)===norm(nome)));
+      if(!c){c={id:uid(),extId:r.id?String(r.id):"",nome,fonte:"Método Camocim",link:safeUrl(r.link),disc:mapa[0].dId,assunto:mapa[0].aId,qtd:Math.round(+r.total||0)||tq,feitas:0,acertos:0,criado:data};D.cadernos.unshift(c)}
+      c.feitas+=tq;c.acertos+=ta;if(+r.total)c.qtd=Math.round(+r.total)}
+    if(erros.length&&$("rmErr")&&$("rmErr").checked)erros.forEach(e=>{const dId=mapa.find(m=>norm(m.nome)===norm(e.disciplina))?.dId||mapa[0].dId;D.erros.unshift({id:uid(),data,disc:dId,assunto:assId(dId,e.assunto),motivo:"Não sabia o conteúdo",texto:e.texto,link:e.link,refazer:addDias(data,7),resolvida:false,tentativas:1})});
+    salvar();dlg.close();render();toast("Resultado do Camocim lançado.");location.hash="questoes";setSub(ehSim?"simulados":"cadernos");
+  };
+}
+
+/* ================= geral ================= */
+function renderBanner(){
+  $("bannerSlot").innerHTML=exemplo?`<div class="banner" style="margin-bottom:16px"><p><b>Dados de exemplo.</b> O concurso, as disciplinas e os resultados abaixo são ilustrativos, para você ver como o Farol funciona. Comece do zero ou aproveite as disciplinas como ponto de partida.</p><div class="row"><button class="primary" id="bZero">Começar do zero</button><button id="bManter">Manter só as disciplinas</button></div></div>`:"";
+  if(exemplo){$("bZero").onclick=()=>sairDoExemplo(false);$("bManter").onclick=()=>sairDoExemplo(true)}
+}
+function render(){
+  const dp=diasProva();const ch=$("countChip");ch.hidden=dp===null||dp<0;if(!ch.hidden)ch.innerHTML=`<b>${dp}</b> ${dp===1?"dia":"dias"} para a prova`;
+  renderBanner();renderHoje();renderEstudar();renderCadernos();renderSimulados();renderErros();renderEdital();renderEvolucao();renderRegistro();
+}
+const ABAS=["hoje","estudar","questoes","edital","evolucao","registro"];
+function rota(){
+  const t=ABAS.includes(location.hash.slice(1))?location.hash.slice(1):"hoje";
+  document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.tab===t)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  ABAS.forEach(k=>$("tab-"+k).hidden=k!==t);window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",rota);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){if(cron.inicio){pedirWake();tick()}renderHoje()}});
+
+/* instalação e atualização automática */
 let promptInstalar=null;
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();promptInstalar=e;$("btnInstalar").hidden=false});
 $("btnInstalar").onclick=async()=>{if(!promptInstalar)return;promptInstalar.prompt();try{await promptInstalar.userChoice}catch(e){}promptInstalar=null;$("btnInstalar").hidden=true};
 window.addEventListener("appinstalled",()=>{$("btnInstalar").hidden=true;toast("App instalado.")});
 if("serviceWorker" in navigator&&location.protocol!=="file:"){
   const tinhaSW=!!navigator.serviceWorker.controller;let recarregou=false;
-  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(tinhaSW&&!recarregou){recarregou=true;location.reload()}});
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(tinhaSW&&!recarregou&&!cron.inicio){recarregou=true;location.reload()}});
   window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>{
     const checar=()=>reg.update().catch(()=>{});
     document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checar()});
@@ -563,27 +1011,11 @@ if("serviceWorker" in navigator&&location.protocol!=="file:"){
   }).catch(()=>{}));
 }
 
-/* ---------- Geral ---------- */
-function renderBanner(){
-  $("bannerSlot").innerHTML=modoExemplo?`<div class="banner" style="margin-top:18px"><p><b>Dados de exemplo.</b> As disciplinas e sessões abaixo são ilustrativas, para você ver como o caderno funciona. Comece do zero ou aproveite a lista de disciplinas como ponto de partida.</p><div class="row"><button class="primary" id="bZero">Começar do zero</button><button id="bManter">Manter só as disciplinas</button></div></div>`:"";
-  if(modoExemplo){$("bZero").onclick=()=>adotar(false);$("bManter").onclick=()=>adotar(true)}
-}
-function render(){
-  const ini=semanaInicio(),fim=new Date(ini);fim.setDate(fim.getDate()+6);
-  $("weekline").textContent="Semana "+fmtData(isoDe(ini))+" a "+fmtData(isoDe(fim));
-  renderBanner();renderCron();renderPlano();renderRegistro();renderDesempenho();
-}
-function rota(){
-  const t=["cronometro","plano","registro","desempenho"].includes(location.hash.slice(1))?location.hash.slice(1):"cronometro";
-  document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.dataset.tab===t)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
-  ["cronometro","plano","registro","desempenho"].forEach(k=>$("tab-"+k).hidden=k!==t);
-}
-window.addEventListener("hashchange",rota);
-let tt=null;function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2600)}
-document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&cron.inicio){pedirWake();tick()}});
-
-// primeiro quadro: exemplo em memória enquanto o armazenamento responde
-rota();initStore();
+carregar();
+try{const s=sessionStorage.getItem("fa_sub");if(s)setSub(s)}catch(e){}
+$("storeStatus").textContent="Dados salvos neste aparelho.";
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+rota();render();lerResultado();
 })();
 </script>
 </body>
